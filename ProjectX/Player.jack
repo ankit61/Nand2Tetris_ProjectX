@@ -101,11 +101,19 @@ class Player {
         return pos;
     }
 
-    method Pair getWidth() {
+    method int getX() {
+        return pos.getX();
+    }
+
+    method int getY() {
+        return pos.getX();
+    }
+
+    method int getWidth() {
         return width;
     }
 
-    method Pair getHeight() {
+    method int getHeight() {
         return height;
     }
 }

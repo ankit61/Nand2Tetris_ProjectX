@@ -98,14 +98,9 @@ call Rival.undraw 1
 pop temp 0
 label IF_FALSE3
 push this 0
-call Pair.dispose 1
+push local 0
+call Pair.assign 2
 pop temp 0
-push local 0
-call Pair.getX 1
-push local 0
-call Pair.getY 1
-call Pair.new 2
-pop this 0
 push pointer 0
 call Rival.draw 1
 pop temp 0

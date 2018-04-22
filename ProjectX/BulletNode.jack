@@ -12,17 +12,19 @@ class BulletNode {
         return b;
     }
 
-    method Bullet getNext() {
+    method BulletNode getNext() {
         return next;
     }
     
-    method void setNext(Node newNext) {
+    method void setNext(BulletNode newNext) {
         let next = newNext;
         return;
     }
 
     method void setBullet(Bullet newBullet) {
         do b.dispose();
+        do Output.printInt(newBullet);
+        do Output.printString(" ");
         let b = Bullet.new(newBullet.getPos(), newBullet.getVelocity(), newBullet.shouldBounce());
         return;
     }

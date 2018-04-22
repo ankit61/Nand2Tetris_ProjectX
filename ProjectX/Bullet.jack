@@ -4,8 +4,7 @@ class Bullet {
     field Array seeds;
     field bool willBounce, hasDisappeared;
     field RandomGenerator random;
-    field Pair rivalPos, playerPos;
-    
+
     constructor Bullet new(Pair p, Pair startVel, bool bounceStatus) {
         let pos = Pair.new(p.getX(), p.getY());
         let velocity = Pair.new(startVel.getX(), startVel.getY());
@@ -116,9 +115,8 @@ class Bullet {
     }
 
     method bool inCollisionPlayer(Player p) {
-        let playerPos = p.getPos();
-        if((pos.getX() > playerPos.getX()) & (pos.getX() < (playerPos.getX() + p.getWidth())) & 
-            (pos.getY() > playerPos.getY()) & (pos.getY() < (playerPos.getY() + p.getHeight()))) {
+        if((pos.getX() > p.getX()) & (pos.getX() < (p.getX() + p.getWidth())) & 
+            (pos.getY() > p.getY()) & (pos.getY() < (p.getY() + p.getHeight()))) {
                 return true;
         }
         return false;

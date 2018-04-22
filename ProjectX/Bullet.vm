@@ -1,5 +1,5 @@
 function Bullet.new 0
-push constant 17
+push constant 15
 call Memory.alloc 1
 pop pointer 0
 push argument 0
@@ -339,18 +339,15 @@ return
 function Bullet.inCollisionPlayer 0
 push argument 0
 pop pointer 0
-push argument 1
-call Player.getPos 1
-pop this 16
 push this 0
 call Pair.getX 1
-push this 16
-call Pair.getX 1
+push argument 1
+call Player.getX 1
 gt
 push this 0
 call Pair.getX 1
-push this 16
-call Pair.getX 1
+push argument 1
+call Player.getX 1
 push argument 1
 call Player.getWidth 1
 add
@@ -358,14 +355,14 @@ lt
 and
 push this 0
 call Pair.getY 1
-push this 16
-call Pair.getY 1
+push argument 1
+call Player.getY 1
 gt
 and
 push this 0
 call Pair.getY 1
-push this 16
-call Pair.getY 1
+push argument 1
+call Player.getY 1
 push argument 1
 call Player.getHeight 1
 add

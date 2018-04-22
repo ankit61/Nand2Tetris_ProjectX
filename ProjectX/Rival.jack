@@ -36,8 +36,7 @@ class Rival {
             if(~(pos.getX() = newPos.getX()) | ~(pos.getY() = newPos.getY())) {
                 do undraw();
             }
-            do pos.dispose();
-            let pos = Pair.new(newPos.getX(), newPos.getY());
+            do pos.assign(newPos);
             do draw();
             if(random.generate(0, 100) < probabilityToStop) {
                 let probabilityToMove = probabilityToMove - 100;
@@ -101,19 +100,19 @@ class Rival {
         return;
     }
 
-    method Pair getX() {
+    method int getX() {
         return pos.getX();
     }
 
-    method Pair getY() {
+    method int getY() {
         return pos.getY();
     }
 
-    method Pair getWidth() {
+    method int getWidth() {
         return width;
     }
 
-    method Pair getHeight() {
+    method int getHeight() {
         return height;
     }
 }

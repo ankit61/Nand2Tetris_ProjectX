@@ -24,7 +24,6 @@ class LinkedListBullets {
             return node;
         }
         let temp = node.getNext();
-        
         if(~(temp = null)) {
             do node.setBullet(temp.getBullet());
             do node.setNext(temp.getNext());

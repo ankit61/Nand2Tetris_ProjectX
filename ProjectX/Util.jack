@@ -15,14 +15,14 @@ class Util {
     }
 
     function bool isValidX(int x) {
-        if(x < 60 & x > 0) {
+        if(x < Util.maxX() & x > Util.minX()) {
             return true;
         }
         return false;
     }
 
     function bool isValidY(int y) {
-        if(y < 28 & y > 0) {
+        if(y < Util.maxY() & y > Util.minY()) {
             return true;
         }
         return false;
@@ -32,7 +32,7 @@ class Util {
         return Pair.new(p.getX() * Util.scalingFactor(), p.getY() * Util.scalingFactor());
     }
 
-    function Pair scale2Screen(int c) {
+    function int scale2Screen(int c) {
         return c * Util.scalingFactor();
     }
 
@@ -49,7 +49,7 @@ class Util {
     }
 
     function int maxX() {
-        return 58;
+        return (511 / Util.scalingFactor()) - (32 / Util.scalingFactor());
     }
 
     function int minX() {
@@ -64,7 +64,7 @@ class Util {
     }
 
     function int maxY() {
-        return 26;
+        return (255 / Util.scalingFactor()) - (32 / Util.scalingFactor());
     }
     
     function int minY() {

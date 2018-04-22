@@ -364,6 +364,18 @@ push argument 0
 pop pointer 0
 push this 0
 return
+function Player.getX 0
+push argument 0
+pop pointer 0
+push this 0
+call Pair.getX 1
+return
+function Player.getY 0
+push argument 0
+pop pointer 0
+push this 0
+call Pair.getX 1
+return
 function Player.getWidth 0
 push argument 0
 pop pointer 0
