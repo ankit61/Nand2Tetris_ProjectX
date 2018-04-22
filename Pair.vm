@@ -1,0 +1,150 @@
+function Pair.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push pointer 0
+return
+function Pair.plusEquals 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Pair.getX 1
+call Pair.updateX 2
+pop temp 0
+push pointer 0
+push argument 1
+call Pair.getY 1
+call Pair.updateY 2
+pop temp 0
+push constant 0
+return
+function Pair.getX 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Pair.updateX 0
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+add
+call Util.isValidX 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push argument 1
+add
+pop this 0
+push constant 0
+return
+label IF_FALSE0
+push argument 1
+push constant 0
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+call Util.maxX 0
+pop this 0
+push constant 0
+return
+label IF_FALSE1
+push argument 1
+push constant 0
+lt
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+call Util.minX 0
+pop this 0
+push constant 0
+return
+label IF_FALSE2
+push constant 0
+return
+function Pair.getY 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Pair.updateY 0
+push argument 0
+pop pointer 0
+push this 1
+push argument 1
+add
+call Util.isValidY 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push argument 1
+add
+pop this 1
+push constant 0
+return
+label IF_FALSE0
+push argument 1
+push constant 0
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+call Util.maxY 0
+pop this 1
+push constant 0
+return
+label IF_FALSE1
+push argument 1
+push constant 0
+lt
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+call Util.minY 0
+pop this 1
+push constant 0
+return
+label IF_FALSE2
+push constant 0
+return
+function Pair.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Pair.setX 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 0
+push constant 0
+return
+function Pair.assign 0
+push argument 0
+pop pointer 0
+push argument 1
+call Pair.getX 1
+pop this 0
+push argument 1
+call Pair.getY 1
+pop this 1
+push constant 0
+return
+function Pair.setY 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 1
+push constant 0
+return

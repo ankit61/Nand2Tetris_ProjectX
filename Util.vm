@@ -1,0 +1,157 @@
+function Util.drawRectangle 0
+push argument 3
+call Screen.setColor 1
+pop temp 0
+push argument 0
+call Pair.getX 1
+call Util.scalingFactor 0
+call Math.multiply 2
+push argument 0
+call Pair.getY 1
+call Util.scalingFactor 0
+call Math.multiply 2
+call Util.scalingFactor 0
+push argument 0
+call Pair.getX 1
+push argument 1
+add
+call Math.multiply 2
+call Util.scalingFactor 0
+push argument 0
+call Pair.getY 1
+push argument 2
+add
+call Math.multiply 2
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Util.bulletSpeed 0
+push constant 4
+return
+function Util.scalingFactor 0
+push constant 8
+return
+function Util.isValidX 0
+push argument 0
+push constant 60
+lt
+push argument 0
+and
+push constant 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return
+function Util.isValidY 0
+push argument 0
+push constant 28
+lt
+push argument 0
+and
+push constant 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return
+function Util.screenCoordinates 0
+push argument 0
+call Pair.getX 1
+call Util.scalingFactor 0
+call Math.multiply 2
+push argument 0
+call Pair.getY 1
+call Util.scalingFactor 0
+call Math.multiply 2
+call Pair.new 2
+return
+function Util.scale2Screen 0
+push argument 0
+call Util.scalingFactor 0
+call Math.multiply 2
+return
+function Util.mod 0
+push argument 0
+push argument 1
+push argument 0
+push argument 1
+call Math.divide 2
+call Math.multiply 2
+sub
+return
+function Util.onEdge 0
+push argument 0
+call Pair.getY 1
+call Util.maxY 0
+eq
+push argument 0
+call Pair.getX 1
+call Util.minX 0
+eq
+or
+push argument 0
+call Pair.getX 1
+call Util.maxX 0
+eq
+or
+push argument 0
+call Pair.getY 1
+call Util.minY 0
+eq
+or
+return
+function Util.getScreenAddress 0
+push constant 16384
+return
+function Util.maxX 0
+push constant 58
+return
+function Util.minX 0
+push constant 0
+return
+function Util.abs 0
+push argument 0
+push constant 0
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+neg
+return
+label IF_FALSE0
+push argument 0
+return
+function Util.maxY 0
+push constant 26
+return
+function Util.minY 0
+push constant 0
+return
+function Util.getPersonWidth 0
+push constant 4
+return
+function Util.getPersonHeight 0
+push constant 4
+return
+function Util.space 0
+push constant 32
+return
+function Util.getBulletWidth 0
+push constant 2
+return
+function Util.getBulletHeight 0
+push constant 2
+return

@@ -1,0 +1,111 @@
+class Player {
+    field Pair pos;
+    static int width;
+    static int height;
+    static Pair velocity;
+    static Pair bulletVelocity;
+    field int memAddress;
+    
+    constructor Player new(Pair p) {
+        let pos = Pair.new(p.getX(), p.getY());
+        let width = 4;
+        let height = 4;
+        let velocity = Pair.new(2, 2);
+        let bulletVelocity = Pair.new(2, 0);
+        return this;
+    }
+
+    method Pair move(int keyPressed) {
+        var Pair newPos;
+        let newPos = Pair.new(pos.getX(), pos.getY());
+        if(keyPressed = 130) { // left
+            do newPos.updateX(-velocity.getX());
+            do bulletVelocity.setX(-Util.bulletSpeed());
+            do bulletVelocity.setY(0);
+        }
+        if(keyPressed = 131) { // up 
+            do newPos.updateY(-velocity.getY());
+            do bulletVelocity.setX(0);
+            do bulletVelocity.setY(-Util.bulletSpeed());
+        }
+        if(keyPressed = 132) { // right
+            do newPos.updateX(velocity.getX());
+            do bulletVelocity.setX(Util.bulletSpeed());
+            do bulletVelocity.setY(0);
+        }
+        if(keyPressed = 133) { // down
+            do newPos.updateY(velocity.getY());
+            do bulletVelocity.setX(0);
+            do bulletVelocity.setY(Util.bulletSpeed());
+        }
+        
+        if(~(pos.getX() = newPos.getX()) | ~(pos.getY() = newPos.getY())) {
+            do undraw();
+        }
+        do pos.assign(newPos);
+        do draw();
+        do newPos.dispose();
+        return pos;
+    }
+
+    method void draw() {
+        do drawBase(pos.getX(), pos.getY());
+        do drawBase(pos.getX() + 2, pos.getY());
+        do drawBase(pos.getX(), pos.getY() + 2);
+        do drawBase(pos.getX() + 2, pos.getY() + 2);
+        return;
+    }
+
+    method void drawBase(int x, int y) {
+        let memAddress = Util.getScreenAddress() + (Util.scale2Screen(x) / 16) + (Util.scale2Screen(y) * 32);
+        do Memory.poke(memAddress+0, -1);
+        do Memory.poke(memAddress+32, -21931);
+        do Memory.poke(memAddress+64, -11221);
+        do Memory.poke(memAddress+96, -22379);
+        do Memory.poke(memAddress+128, -12021);
+        do Memory.poke(memAddress+160, -24443);
+        do Memory.poke(memAddress+192, -16125);
+        do Memory.poke(memAddress+224, -30039);
+        do Memory.poke(memAddress+256, -27311);
+        do Memory.poke(memAddress+288, -16253);
+        do Memory.poke(memAddress+320, -24315);
+        do Memory.poke(memAddress+352, -12149);
+        do Memory.poke(memAddress+384, -22251);
+        do Memory.poke(memAddress+416, -11221);
+        do Memory.poke(memAddress+448, -21931);
+        do Memory.poke(memAddress+480, -1);
+        return;
+    }
+    
+    method void undraw() {
+        do Util.drawRectangle(pos, width, height, false);
+        return;
+    }
+
+    method Bullet shoot() {
+        var Bullet b;
+        let b = Bullet.new(pos, bulletVelocity, true);
+        return b;
+    }
+
+    method void die() {
+        do undraw();
+        do velocity.dispose();
+        do bulletVelocity.dispose();
+        do pos.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+    method Pair getPos() {
+        return pos;
+    }
+
+    method Pair getWidth() {
+        return width;
+    }
+
+    method Pair getHeight() {
+        return height;
+    }
+}

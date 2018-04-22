@@ -1,0 +1,30 @@
+class RandomGenerator {
+    field Array seeds;
+    field int index;
+    field int seedsSize;
+
+    constructor RandomGenerator new() {
+        let seedsSize = 10;
+        let seeds = Array.new(seedsSize);
+        let seeds[0] = 1223;
+        let seeds[1] = 929;
+        let seeds[2] = 547;
+        let seeds[3] = 991;
+        let seeds[4] = 1109;
+        let seeds[5] = 4027;
+        let seeds[6] = 3319;
+        let seeds[7] = 6277;
+        let seeds[8] = 769;
+        let seeds[9] = 1787;
+        let index = 0;
+        return this;
+    }
+
+    method int generate(int low, int high) {
+        let seeds[index] = seeds[index] * 607;
+        let index = Util.mod(index + 1, seedsSize);
+        return Util.mod(Util.abs(seeds[index]), high - low + 1) + low;
+    }
+
+
+}

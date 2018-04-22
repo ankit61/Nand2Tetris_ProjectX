@@ -1,0 +1,35 @@
+class BulletNode {
+    field Bullet b;
+    field BulletNode next;
+
+    constructor BulletNode new(Bullet curBullet, BulletNode curNext) {
+        let b = Bullet.new(curBullet.getPos(), curBullet.getPos(), curBullet.shouldBounce());
+        let next = curNext;
+        return this;
+    }
+
+    method Bullet getBullet() {
+        return b;
+    }
+
+    method Bullet getNext() {
+        return next;
+    }
+    
+    method void setNext(Node newNext) {
+        let next = newNext;
+        return;
+    }
+
+    method void setBullet(Bullet newBullet) {
+        do b.dispose();
+        let b = Bullet.new(newBullet.getPos(), newBullet.getVelocity(), newBullet.shouldBounce());
+        return;
+    }
+
+    method void dispose() {
+        do b.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

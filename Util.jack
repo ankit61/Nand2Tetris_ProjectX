@@ -1,0 +1,93 @@
+class Util {
+
+    function void drawRectangle(Pair leftTop, int w, int h, bool color) {
+        do Screen.setColor(color);
+        do Screen.drawRectangle(leftTop.getX() * Util.scalingFactor(), leftTop.getY() * Util.scalingFactor(), Util.scalingFactor() * (leftTop.getX() + w), Util.scalingFactor() * (leftTop.getY() + h));
+        return;
+    }
+
+    function int bulletSpeed() {
+        return 4;
+    }
+    
+    function int scalingFactor() {
+        return 8;
+    }
+
+    function bool isValidX(int x) {
+        if(x < 60 & x > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    function bool isValidY(int y) {
+        if(y < 28 & y > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    function Pair screenCoordinates(Pair p) {
+        return Pair.new(p.getX() * Util.scalingFactor(), p.getY() * Util.scalingFactor());
+    }
+
+    function Pair scale2Screen(int c) {
+        return c * Util.scalingFactor();
+    }
+
+    function int mod(int a, int b) {
+        return a - (b * (a / b));
+    }
+
+    function bool onEdge(Pair p) {
+        return ((p.getY() = Util.maxY()) | (p.getX() = Util.minX()) | (p.getX() = Util.maxX()) | (p.getY() = Util.minY()));
+    }
+
+    function int getScreenAddress() {
+        return 16384;
+    }
+
+    function int maxX() {
+        return 58;
+    }
+
+    function int minX() {
+        return 0;
+    }
+
+    function int abs(int x) {
+        if(x < 0) {
+            return -x;
+        }
+        return x;
+    }
+
+    function int maxY() {
+        return 26;
+    }
+    
+    function int minY() {
+        return 0;
+    }
+
+    function int getPersonWidth() {
+        return 4;
+    }
+
+    function int getPersonHeight() {
+        return 4;
+    }
+
+    function int space() {
+        return 32;
+    }
+
+    function int getBulletWidth() {
+        return 2;
+    }
+
+    function int getBulletHeight() {
+        return 2;
+    }
+}

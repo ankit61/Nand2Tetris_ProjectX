@@ -1,0 +1,79 @@
+class Pair {
+    field int x;
+    field int y;
+
+    constructor Pair new(int a, int b) {
+        let x = a;
+        let y = b;
+        return this;
+    }
+
+    method void plusEquals(Pair p) {
+        do updateX(p.getX());
+        do updateY(p.getY());
+        return;
+    }
+
+    method int getX() {
+        return x;
+    }
+    
+    method void updateX(int dx) {
+        if(Util.isValidX(x + dx)) {
+            let x = x + dx;
+            return;
+        }
+        if(dx > 0) {
+            let x = Util.maxX();
+            return;
+        }
+        if(dx < 0) {
+            let x = Util.minX();
+            return;
+        }
+        return;
+    }
+
+    method int getY() {
+        return y;
+    }
+    
+    method void updateY(int dy) {
+        if(Util.isValidY(y + dy)) {
+            let y = y + dy;
+            return;
+        }
+        if(dy > 0) {
+            let y = Util.maxY();
+            return;
+        }
+
+        if(dy < 0) {
+            let y = Util.minY();
+            return;
+        }
+
+        return;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void setX(int a) {
+        let x = a;
+        return;
+    }
+
+    method void assign(Pair p) {
+        let x = p.getX();
+        let y = p.getY();
+        return;
+    }
+
+    method void setY(int b) {
+        let y = b;
+        return;
+    }
+}

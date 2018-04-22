@@ -1,0 +1,303 @@
+function Rival.new 0
+push constant 9
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+call Pair.getX 1
+push argument 0
+call Pair.getY 1
+call Pair.new 2
+pop this 0
+call Util.getPersonWidth 0
+pop static 0
+push constant 5
+pop this 1
+push argument 1
+pop this 2
+push argument 2
+pop this 3
+call Util.getPersonHeight 0
+pop static 1
+call RandomGenerator.new 0
+pop this 8
+push constant 2
+push constant 2
+call Pair.new 2
+pop this 6
+push constant 0
+pop this 4
+push pointer 0
+return
+function Rival.move 1
+push argument 0
+pop pointer 0
+push this 0
+call Pair.getX 1
+push this 0
+call Pair.getY 1
+call Pair.new 2
+pop local 0
+push this 8
+push constant 0
+push constant 100
+call RandomGenerator.generate 3
+push this 2
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 2
+push constant 100
+lt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 2
+push constant 100
+add
+pop this 2
+label IF_FALSE1
+push local 0
+call Util.onEdge 1
+push this 8
+push constant 0
+push constant 100
+call RandomGenerator.generate 3
+push this 1
+lt
+or
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push pointer 0
+call Rival.changeDirection 1
+pop temp 0
+label IF_FALSE2
+push local 0
+push this 6
+call Pair.plusEquals 2
+pop temp 0
+push this 0
+call Pair.getX 1
+push local 0
+call Pair.getX 1
+eq
+not
+push this 0
+call Pair.getY 1
+push local 0
+call Pair.getY 1
+eq
+not
+or
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push pointer 0
+call Rival.undraw 1
+pop temp 0
+label IF_FALSE3
+push this 0
+push local 0
+call Pair.assign 2
+pop temp 0
+push pointer 0
+call Rival.draw 1
+pop temp 0
+push this 8
+push constant 0
+push constant 100
+call RandomGenerator.generate 3
+push this 3
+lt
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 2
+push constant 100
+sub
+pop this 2
+label IF_FALSE4
+label IF_FALSE0
+push local 0
+call Pair.dispose 1
+pop temp 0
+push this 0
+return
+function Rival.changeDirection 0
+push argument 0
+pop pointer 0
+push this 6
+push this 8
+push constant 2
+neg
+push constant 2
+call RandomGenerator.generate 3
+call Pair.setX 2
+pop temp 0
+push this 6
+call Pair.getX 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 6
+push constant 1
+call Pair.setX 2
+pop temp 0
+label IF_FALSE0
+push this 6
+push this 8
+push constant 2
+neg
+push constant 2
+call RandomGenerator.generate 3
+call Pair.setY 2
+pop temp 0
+push this 6
+call Pair.getY 1
+push constant 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 6
+push constant 1
+call Pair.setY 2
+pop temp 0
+label IF_FALSE1
+push constant 0
+return
+function Rival.draw 0
+push argument 0
+pop pointer 0
+push this 0
+push static 0
+push static 1
+push constant 0
+not
+call Util.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Rival.undraw 0
+push argument 0
+pop pointer 0
+push this 0
+push static 0
+push static 1
+push constant 0
+call Util.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Rival.shoot 2
+push argument 0
+pop pointer 0
+push constant 0
+push constant 0
+call Pair.new 2
+pop local 1
+push argument 1
+call Pair.getX 1
+push this 0
+call Pair.getX 1
+sub
+push constant 0
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 1
+call Util.bulletSpeed 0
+neg
+call Pair.setX 2
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push argument 1
+call Pair.getX 1
+push this 0
+call Pair.getX 1
+sub
+push constant 0
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 1
+call Util.bulletSpeed 0
+call Pair.setX 2
+pop temp 0
+label IF_FALSE1
+label IF_END0
+push argument 1
+call Pair.getY 1
+push this 0
+call Pair.getY 1
+sub
+push constant 0
+lt
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 1
+call Util.bulletSpeed 0
+neg
+call Pair.setY 2
+pop temp 0
+goto IF_END2
+label IF_FALSE2
+push argument 1
+call Pair.getY 1
+push this 0
+call Pair.getY 1
+sub
+push constant 0
+gt
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 1
+call Util.bulletSpeed 0
+call Pair.setY 2
+pop temp 0
+label IF_FALSE3
+label IF_END2
+push this 0
+push local 1
+push constant 0
+call Bullet.new 3
+pop local 0
+push local 1
+call Pair.dispose 1
+pop temp 0
+push local 0
+return
+function Rival.die 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Rival.undraw 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Rival.getPos 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Rival.getWidth 0
+push argument 0
+pop pointer 0
+push static 0
+return
+function Rival.getHeight 0
+push argument 0
+pop pointer 0
+push static 1
+return

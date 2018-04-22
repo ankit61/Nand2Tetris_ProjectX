@@ -1,0 +1,136 @@
+class Bullet {
+    field Pair pos, velocity;
+    field int t, sign, randomIndex, memAddress, dx, dy, width, height, i;
+    field Array seeds;
+    field bool willBounce, hasDisappeared;
+    field RandomGenerator random;
+    
+    constructor Bullet new(Pair p, Pair startVel, bool bounceStatus) {
+        let pos = Pair.new(p.getX(), p.getY());
+        let velocity = Pair.new(startVel.getX(), startVel.getY());
+        let t = 2;
+        let willBounce = bounceStatus;
+        let hasDisappeared = false;
+        let sign = 1;
+        let random = RandomGenerator.new();
+        let width = Util.getBulletWidth();
+        let height = Util.getBulletHeight();
+        let randomIndex = 0;
+        return this;
+    }
+
+    method bool shouldBounce() {
+        return willBounce;
+    }
+    
+    method void draw() {
+        if(hasDisappeared)  {
+            return;
+        }
+        do Util.drawRectangle(pos, width, height, true);
+        return;
+    }
+
+    method bool onEdge() {
+        return Util.onEdge(pos);
+    }
+    
+    method Pair move() {
+        var Pair newPos;
+        let newPos = Pair.new(-1,-1);
+        if(~hasDisappeared)  {
+            do newPos.assign(pos);
+            if(Util.onEdge(newPos)) {
+                if(willBounce) {
+                    do bounce();
+                }
+                else {
+                    do disappear();
+                }
+            }
+            do newPos.plusEquals(velocity);
+            if(~(newPos.getX() = pos.getX()) | ~(pos.getY() = newPos.getY())) {
+                do undraw();
+            }
+        }
+        do pos.assign(newPos);
+        do newPos.dispose();
+        do draw();
+        return pos;
+    }
+
+    method void undraw() {
+        do Util.drawRectangle(pos, 2, 2, false);
+        return;
+    }
+
+    method void bounce() {
+        if((~willBounce) | (hasDisappeared)) {
+            return;
+        }
+        let dx = random.generate(-t, t);
+        let dy = random.generate(-t, t);
+        do velocity.setX(-velocity.getX() + dx);
+        do velocity.setY(-velocity.getY()+ dy * sign);
+        if(velocity.getX() > Util.bulletSpeed()) {
+            do velocity.setX(1);
+        }
+        if(velocity.getY() > Util.bulletSpeed()) {
+            do velocity.setY(1);
+        }
+        if(velocity.getX() < -Util.bulletSpeed()) {
+            do velocity.setX(-1);
+        }
+        if(velocity.getY() < -Util.bulletSpeed()) {
+            do velocity.setY(-2);
+        }
+        if(velocity.getX() = 0) {
+            do velocity.setX(1);
+        }
+        if(velocity.getY() = 0) {
+            do velocity.setY(1);
+        }
+        let sign = sign * -1;
+        return;
+    }
+    
+    method void disappear() {
+        do undraw();
+        let hasDisappeared = true;
+        return;
+    }
+    
+    method void dispose() {
+        do undraw();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method bool inCollisionRival(Rival r) {
+        var Pair rivalPos;
+        let rivalPos = r.getPos();
+        if((pos.getX() > rivalPos.getX()) & (pos.getX() < (rivalPos.getX() + r.getWidth())) & 
+            (pos.getY() > rivalPos.getY()) & (pos.getY() < (rivalPos.getY() + r.getHeight()))) {
+                return true;
+        }
+        return false;
+    }
+
+    method bool inCollisionPlayer(Player p) {
+        var Pair playerPos;
+        let playerPos = p.getPos();
+        if((pos.getX() > playerPos.getX()) & (pos.getX() < (playerPos.getX() + p.getWidth())) & 
+            (pos.getY() > playerPos.getY()) & (pos.getY() < (playerPos.getY() + p.getHeight()))) {
+                return true;
+        }
+        return false;
+    }
+
+    method Pair getPos() {
+        return pos;
+    }
+
+    method Pair getVelocity() {
+        return velocity;
+    }
+}

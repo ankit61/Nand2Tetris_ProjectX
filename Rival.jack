@@ -1,0 +1,114 @@
+class Rival {
+    field Pair pos;
+    static int width, height;
+    field int probabilityChangeDirections, probabilityToMove, probabilityToStop;
+    field int randomIndex;
+    field Array seeds;
+    field Pair velocity;
+    field int memAddress;
+    field RandomGenerator random;
+
+    constructor Rival new(Pair p, int pMove, int pStop) {
+        let pos = Pair.new(p.getX(), p.getY());
+        let width = Util.getPersonWidth();
+        let probabilityChangeDirections = 5;
+        let probabilityToMove = pMove;
+        let probabilityToStop = pStop;
+        let height = Util.getPersonHeight();
+        let random = RandomGenerator.new();
+        let velocity = Pair.new(2, 2);
+        let randomIndex = 0;
+        
+        return this;
+    }
+
+    method Pair move() {
+        var Pair newPos;
+        let newPos = Pair.new(pos.getX(), pos.getY());
+        if(random.generate(0, 100) < probabilityToMove) {
+            if(probabilityToMove < 100) {
+                let probabilityToMove = probabilityToMove + 100;
+            }
+            if((Util.onEdge(newPos)) | (random.generate(0,100) < probabilityChangeDirections)) {
+                do changeDirection();
+            }
+            do newPos.plusEquals(velocity);
+            if(~(pos.getX() = newPos.getX()) | ~(pos.getY() = newPos.getY())) {
+                do undraw();
+            }
+            do pos.assign(newPos);
+            do draw();
+            if(random.generate(0, 100) < probabilityToStop) {
+                let probabilityToMove = probabilityToMove - 100;
+            }
+        }
+        do newPos.dispose();
+        return pos;
+    }
+
+    method void changeDirection() {
+        do velocity.setX(random.generate(-2, 2));
+        if(velocity.getX() = 0) {
+            do velocity.setX(1);
+        }
+        do velocity.setY(random.generate(-2, 2));
+        if(velocity.getY() = 0) {
+            do velocity.setY(1);
+        }
+        return;
+    }
+
+    method void draw() {
+        do Util.drawRectangle(pos, width, height, true);
+        return;
+    }
+
+    method void undraw() {
+        do Util.drawRectangle(pos, width, height, false);
+        return;
+    }
+
+    method Bullet shoot(Pair shootAt) {
+        var Bullet b;
+        var Pair bulletVelocity;
+        let bulletVelocity = Pair.new(0,0);
+        if(shootAt.getX() - pos.getX() < 0) {
+            do bulletVelocity.setX(-Util.bulletSpeed());
+        }
+        else {
+            if(shootAt.getX() - pos.getX() > 0) {
+                do bulletVelocity.setX(Util.bulletSpeed());
+            }
+        }
+
+        if(shootAt.getY() - pos.getY() < 0) {
+            do bulletVelocity.setY(-Util.bulletSpeed());
+        }
+        else {
+            if(shootAt.getY() - pos.getY() > 0) {
+                do bulletVelocity.setY(Util.bulletSpeed());
+            }
+        }
+        let b = Bullet.new(pos, bulletVelocity, false);
+        do bulletVelocity.dispose();
+        return b;
+    }
+
+    method void die() {
+        do undraw();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method Pair getPos() {
+        return pos;
+    }
+
+    method Pair getWidth() {
+        return width;
+    }
+
+    method Pair getHeight() {
+        return height;
+    }
+}

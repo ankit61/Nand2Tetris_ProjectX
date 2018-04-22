@@ -1,0 +1,42 @@
+class LinkedListBullets {
+    field BulletNode head;
+    field int sz;
+    
+    constructor LinkedListBullets new() {
+        let head = null;
+        let sz = 0;
+        return this;
+    }
+
+    method void push(Bullet t) {
+        let head = BulletNode.new(t, head);
+        let sz = sz + 1;
+        return;
+    }
+
+    method BulletNode getHead() {
+        return head;
+    }
+
+    method BulletNode erase(BulletNode node) {
+        var BulletNode temp;
+        if(node = null) {
+            return node;
+        }
+        let temp = node.getNext();
+        
+        if(~(temp = null)) {
+            do node.setBullet(temp.getBullet());
+            do node.setNext(temp.getNext());
+            do temp.dispose();
+        }
+        else {
+            do node.dispose();
+        }
+        let sz = sz - 1;
+        if(sz = 0) {
+            let head = null;
+        }
+        return node.getNext();
+    }
+}

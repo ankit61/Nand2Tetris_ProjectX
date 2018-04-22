@@ -1,0 +1,83 @@
+class Game {
+    field LinkedListBullets bullets;
+    field Array rivals;
+    field int bulletsSize, rivalsSize;
+    field Player player;
+    field int i;
+    field BulletNode iterator;
+    field int gameIteration;
+    field Pair temp;
+    field Bullet tempBullet;
+    field Rival tempRival;
+    field int shootingProbability;
+    field RandomGenerator random;
+
+    constructor Game new() {
+        let player = Player.new(Pair.new(Util.maxX() / 2 + 1, Util.maxY() / 2));
+        let rivalsSize = 3;
+        let bullets = LinkedListBullets.new();
+        let random = RandomGenerator.new();
+        let rivals = Array.new(rivalsSize);
+        let bullets = BulletsArray.new(200);
+        let rivals[0] = Rival.new(Pair.new(Util.maxX() / 4, Util.maxY() / 4), 100, 0);
+        let shootingProbability = 4;
+        let rivals[1] = Rival.new(Pair.new(Util.maxX(), Util.maxY()), 5, 5);
+        let rivals[2] = Rival.new(Pair.new(Util.maxX() / 4, Util.maxY() / 2), 90, 5);
+        let bulletsSize = 0;
+        return this;
+    }
+
+    method void run() {
+        var bool done;
+        let i = 0;
+        while(i < rivalsSize) {
+            let tempRival = rivals[i];
+            do tempRival.draw();
+            let i = i + 1;
+        }
+
+        do player.draw();
+        while(true) {
+            let iterator = bullets.getHead();
+            while(~(iterator = null)) {
+                let tempBullet = iterator.getBullet();
+                do tempBullet.move();
+                if((tempBullet.onEdge()) & (~tempBullet.shouldBounce())) {
+                    let iterator = bullets.erase(iterator);
+                    let tempBullet = null;
+                }
+                else {
+                    let iterator = iterator.getNext();       
+                }
+                let i = 0;
+                while(i < rivalsSize) {
+                    if((~(rivals[i] = null)) & (~(tempBullet = null))) {
+                        let tempRival = rivals[i];
+                        if(tempBullet.inCollisionRival(tempRival.getPos())) {
+                            do tempRival.die();
+                            let rivals[i] = null;
+                        }
+                    }
+                    let i = i + 1;
+                }
+            }
+            let i = 0;
+            while(i < rivalsSize) {
+                if(~(rivals[i] = null)) {
+                    let tempRival = rivals[i];
+                    do tempRival.move();
+                    if(random.generate(0, 100) < shootingProbability) {
+                        do bullets.push(tempRival.shoot(player.getPos()));
+                    }
+                }
+                let i = i + 1;
+            }
+            if(Keyboard.keyPressed() = Util.space()) {
+                do bullets.push(player.shoot());
+            }
+            do player.move(Keyboard.keyPressed());
+            do Sys.wait(100);
+        }
+        return;
+    }
+}
