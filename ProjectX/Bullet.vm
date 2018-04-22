@@ -1,5 +1,5 @@
 function Bullet.new 0
-push constant 15
+push constant 17
 call Memory.alloc 1
 pop pointer 0
 push argument 0
@@ -295,21 +295,18 @@ call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return
-function Bullet.inCollisionRival 1
+function Bullet.inCollisionRival 0
 push argument 0
 pop pointer 0
-push argument 1
-call Rival.getPos 1
-pop local 0
 push this 0
 call Pair.getX 1
-push local 0
-call Pair.getX 1
+push argument 1
+call Rival.getX 1
 gt
 push this 0
 call Pair.getX 1
-push local 0
-call Pair.getX 1
+push argument 1
+call Rival.getX 1
 push argument 1
 call Rival.getWidth 1
 add
@@ -317,14 +314,14 @@ lt
 and
 push this 0
 call Pair.getY 1
-push local 0
-call Pair.getY 1
+push argument 1
+call Rival.getY 1
 gt
 and
 push this 0
 call Pair.getY 1
-push local 0
-call Pair.getY 1
+push argument 1
+call Rival.getY 1
 push argument 1
 call Rival.getHeight 1
 add
@@ -339,20 +336,20 @@ return
 label IF_FALSE0
 push constant 0
 return
-function Bullet.inCollisionPlayer 1
+function Bullet.inCollisionPlayer 0
 push argument 0
 pop pointer 0
 push argument 1
 call Player.getPos 1
-pop local 0
+pop this 16
 push this 0
 call Pair.getX 1
-push local 0
+push this 16
 call Pair.getX 1
 gt
 push this 0
 call Pair.getX 1
-push local 0
+push this 16
 call Pair.getX 1
 push argument 1
 call Player.getWidth 1
@@ -361,13 +358,13 @@ lt
 and
 push this 0
 call Pair.getY 1
-push local 0
+push this 16
 call Pair.getY 1
 gt
 and
 push this 0
 call Pair.getY 1
-push local 0
+push this 16
 call Pair.getY 1
 push argument 1
 call Player.getHeight 1

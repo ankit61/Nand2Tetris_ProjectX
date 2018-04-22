@@ -50,10 +50,15 @@ class Game {
                     let iterator = iterator.getNext();       
                 }
                 let i = 0;
+                if(~(tempBullet = null)) {
+                    if(tempBullet.inCollisionPlayer(player)) {
+                        return;
+                    }
+                }
                 while(i < rivalsSize) {
                     if((~(rivals[i] = null)) & (~(tempBullet = null))) {
                         let tempRival = rivals[i];
-                        if(tempBullet.inCollisionRival(tempRival.getPos())) {
+                        if(tempBullet.inCollisionRival(tempRival)) {
                             do tempRival.die();
                             let rivals[i] = null;
                         }
