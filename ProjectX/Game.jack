@@ -4,7 +4,7 @@ class Game {
     field int bulletsSize, rivalsSize;
     field Player player;
     field int i;
-    field BulletNode iterator;
+    field BulletNode iterator, prev;
     field int gameIteration;
     field Pair temp;
     field Bullet tempBullet;
@@ -39,17 +39,18 @@ class Game {
         do player.draw();
         while(true) {
             let iterator = bullets.getHead();
+            let prev = null;
             while(~(iterator = null)) {
                 let tempBullet = iterator.getBullet();
                 do tempBullet.move();
                 if((tempBullet.onEdge()) & (~tempBullet.shouldBounce())) {
-                    let iterator = bullets.erase(iterator);
+                    let iterator = bullets.erase(prev);
                     let tempBullet = null;
                 }
                 else {
+                    let prev = iterator;
                     let iterator = iterator.getNext();       
                 }
-                let i = 0;
                 if(~(tempBullet = null)) {
                     if(tempBullet.inCollisionPlayer(player)) {
                         return;

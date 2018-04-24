@@ -23,8 +23,6 @@ class BulletNode {
 
     method void setBullet(Bullet newBullet) {
         do b.dispose();
-        do Output.printInt(newBullet);
-        do Output.printString(" ");
         let b = Bullet.new(newBullet.getPos(), newBullet.getVelocity(), newBullet.shouldBounce());
         return;
     }

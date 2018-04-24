@@ -1,5 +1,5 @@
 class LinkedListBullets {
-    field BulletNode head;
+    field BulletNode head, tail;
     field int sz;
     
     constructor LinkedListBullets new() {
@@ -10,6 +10,9 @@ class LinkedListBullets {
 
     method void push(Bullet t) {
         let head = BulletNode.new(t, head);
+        if(tail = null) {
+            let tail = head;
+        }
         let sz = sz + 1;
         return;
     }
@@ -22,42 +25,37 @@ class LinkedListBullets {
         return sz;
     }
 
-    method BulletNode erase(BulletNode node) {
+    method BulletNode erase(BulletNode prev) {
         var BulletNode temp;
-        if(node = null) {
-            return node;
-        }
-        let temp = node.getNext();
-        if(~(temp = null)) {
-            do node.setBullet(temp.getBullet());
-            do node.setNext(temp.getNext());
+        if(prev = null) { //deleting head
+            if(head = null) {
+                do Output.printString("error: deleting from empty list");
+                do Sys.halt();
+            }
+            let temp = head;
+            let head = head.getNext();
             do temp.dispose();
         }
         else {
-            do node.dispose();
-            let node = null;
+            let temp = prev.getNext();
+            do prev.setNext(temp.getNext());
+            do temp.dispose();
         }
-        let sz = sz - 1;
-        if(sz = 0) {
-            let head = null;
+        if(prev = null) {
+            return head;
         }
-        if(node = null) {
-            return null;
-        }
-        else {
-            return node.getNext();
-        }
+        return prev.getNext();
     }
 
     method void print() {
         var BulletNode b;
         let b = head;
-        do Output.printString("Contents: ");
         while(~(b = null)) {
             do Output.printInt(b);
             do Output.printString(" ");
             let b = b.getNext();
         }
+        do Output.println();
         return;
     }
 }
