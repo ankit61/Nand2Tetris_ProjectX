@@ -18,6 +18,10 @@ class LinkedListBullets {
         return head;
     }
 
+    method BulletNode getSize() {
+        return sz;
+    }
+
     method BulletNode erase(BulletNode node) {
         var BulletNode temp;
         if(node = null) {
@@ -31,11 +35,29 @@ class LinkedListBullets {
         }
         else {
             do node.dispose();
+            let node = null;
         }
         let sz = sz - 1;
         if(sz = 0) {
             let head = null;
         }
-        return node.getNext();
+        if(node = null) {
+            return null;
+        }
+        else {
+            return node.getNext();
+        }
+    }
+
+    method void print() {
+        var BulletNode b;
+        let b = head;
+        do Output.printString("Contents: ");
+        while(~(b = null)) {
+            do Output.printInt(b);
+            do Output.printString(" ");
+            let b = b.getNext();
+        }
+        return;
     }
 }

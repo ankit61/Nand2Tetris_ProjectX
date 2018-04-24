@@ -137,6 +137,8 @@ and
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
+call Output.println 0
+pop temp 0
 push this 0
 push this 6
 call LinkedListBullets.erase 2

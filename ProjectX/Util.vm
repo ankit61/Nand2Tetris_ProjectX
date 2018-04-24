@@ -34,11 +34,11 @@ push constant 8
 return
 function Util.isValidX 0
 push argument 0
-push constant 60
+call Util.maxX 0
 lt
 push argument 0
 and
-push constant 0
+call Util.minX 0
 gt
 if-goto IF_TRUE0
 goto IF_FALSE0
@@ -51,11 +51,11 @@ push constant 0
 return
 function Util.isValidY 0
 push argument 0
-push constant 28
+call Util.maxY 0
 lt
 push argument 0
 and
-push constant 0
+call Util.minY 0
 gt
 if-goto IF_TRUE0
 goto IF_FALSE0
