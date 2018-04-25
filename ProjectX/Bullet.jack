@@ -33,6 +33,7 @@ class Bullet {
     
     method Pair move() {
         var Pair newPos;
+        do Output.printString(" ");
         let newPos = Pair.new(pos.getX(), pos.getY());
         if(Util.onEdge(newPos)) {
             if(willBounce) {
@@ -66,16 +67,16 @@ class Bullet {
         do velocity.setX(-velocity.getX() + dx);
         do velocity.setY(-velocity.getY()+ dy * sign);
         if(velocity.getX() > Util.bulletSpeed()) {
-            do velocity.setX(1);
+            do velocity.setX(Util.bulletSpeed());
         }
         if(velocity.getY() > Util.bulletSpeed()) {
-            do velocity.setY(1);
+            do velocity.setY(Util.bulletSpeed());
         }
         if(velocity.getX() < -Util.bulletSpeed()) {
-            do velocity.setX(-1);
+            do velocity.setX(-Util.bulletSpeed());
         }
         if(velocity.getY() < -Util.bulletSpeed()) {
-            do velocity.setY(-2);
+            do velocity.setY(-Util.bulletSpeed());
         }
         if(velocity.getX() = 0) {
             do velocity.setX(1);

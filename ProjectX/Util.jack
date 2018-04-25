@@ -15,14 +15,14 @@ class Util {
     }
 
     function bool isValidX(int x) {
-        if(x < Util.maxX() & x > Util.minX()) {
+        if(((x < Util.maxX()) | (x = Util.maxX())) & ((x > Util.minX()) | (x = Util.minX()))) {
             return true;
         }
         return false;
     }
 
     function bool isValidY(int y) {
-        if(y < Util.maxY() & y > Util.minY()) {
+        if(((y < Util.maxY()) | (y = Util.maxY())) & ((y > Util.minY()) | (y = Util.minY()))) {
             return true;
         }
         return false;

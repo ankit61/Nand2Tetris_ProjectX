@@ -37,9 +37,17 @@ push argument 0
 call Util.maxX 0
 lt
 push argument 0
-and
+call Util.maxX 0
+eq
+or
+push argument 0
 call Util.minX 0
 gt
+push argument 0
+call Util.minX 0
+eq
+or
+and
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
@@ -54,9 +62,17 @@ push argument 0
 call Util.maxY 0
 lt
 push argument 0
-and
+call Util.maxY 0
+eq
+or
+push argument 0
 call Util.minY 0
 gt
+push argument 0
+call Util.minY 0
+eq
+or
+and
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
