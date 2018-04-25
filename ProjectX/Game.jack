@@ -59,7 +59,7 @@ class Game {
                 let prev = iterator;
                 let iterator = iterator.getNext();       
             }
-            if(~(temp = null)) {
+            if(~(tempBullet = null)) {
                 if(tempBullet.inCollisionPlayer(player)) {
                     do gameOver();
                 }

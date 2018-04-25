@@ -180,7 +180,7 @@ push this 6
 call BulletNode.getNext 1
 pop this 6
 label IF_END0
-push this 9
+push this 10
 push constant 0
 eq
 not
