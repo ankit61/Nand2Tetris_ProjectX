@@ -146,4 +146,12 @@ class Player {
     method int getHeight() {
         return height;
     }
+
+    method void dispose() {
+        do pos.dispose();
+        do velocity.dispose();
+        do bulletVelocity.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
 }

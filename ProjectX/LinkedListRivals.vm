@@ -137,6 +137,10 @@ push local 0
 call RivalNode.dispose 1
 pop temp 0
 label IF_END0
+push this 1
+push constant 1
+sub
+pop this 1
 push argument 1
 push constant 0
 eq

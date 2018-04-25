@@ -38,6 +38,7 @@ class LinkedListRivals {
             do prev.setNext(temp.getNext());
             do temp.dispose();
         }
+        let sz = sz - 1;
         if(prev = null) {
             return head;
         }

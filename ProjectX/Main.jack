@@ -1,8 +1,17 @@
 class Main {
     function void main() {
         var Game g;
-        let g = Game.new();
-        do g.run();
+        var int i;
+        let i = 1;
+        while(true) {
+            let g = Game.new(i);
+            do g.run();
+            do Screen.clearScreen();
+            do Output.printString("Next Level...");
+            do Sys.wait(5000);
+            do Screen.clearScreen();
+            let i = i + 1;
+        }
         return;
     }
 }

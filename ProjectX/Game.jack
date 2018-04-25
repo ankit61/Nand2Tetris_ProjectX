@@ -12,17 +12,17 @@ class Game {
     field int shootingProbability;
     field RandomGenerator random;
 
-    constructor Game new() {
-        let player = Player.new(Pair.new(Util.maxX(), Util.maxY() / 2));
-        let bullets = LinkedListBullets.new();
+    constructor Game new(int numRivals) {
         let random = RandomGenerator.new();
+        let player = Player.new(Pair.new(random.generate(Util.minX(), Util.maxX()), random.generate(Util.minY(), Util.maxY())));
+        let bullets = LinkedListBullets.new();
         let rivals = LinkedListRivals.new();
         let bullets = BulletsArray.new(200);
         let shootingProbability = 4;
-        do rivals.push(Rival.new(Pair.new(Util.maxX() / 4, Util.maxY() / 5), 100, 0, rivals.getSize()));
-        do rivals.push(Rival.new(Pair.new(Util.maxX() / 4, Util.maxY() * 2 / 5), 5, 5, rivals.getSize()));
-        do rivals.push(Rival.new(Pair.new(Util.maxX() / 4, Util.maxY() * 3 / 5), 90, 15, rivals.getSize()));
-        do rivals.push(Rival.new(Pair.new(Util.maxX() / 4, Util.maxY() * 4 / 5), 50, 50, rivals.getSize()));
+        while(numRivals > 0) {
+            do rivals.push(Rival.new(Pair.new(random.generate(Util.minX(), Util.maxX()), random.generate(Util.minY(), Util.maxY())), random.generate(50, 100), random.generate(0, 50), rivals.getSize()));
+            let numRivals = numRivals - 1;
+        }
         return this;
     }
 
@@ -36,11 +36,27 @@ class Game {
         }
         do player.draw();
         while(true) {
+            if(rivals.getSize() = 0) {
+                return;
+            }
             do controlBullets();
             do controlRivals();
             do controlPlayer();
             do Sys.wait(100);
         }
+        return;
+    }
+    
+    method void dispose() {
+        do player.dispose();
+        do random.dispose();
+        do tempBullet.dispose();
+        do tempRival.dispose();
+        do bulletPrev.dispose();
+        do bulletIt.dispose();
+        do rivalIt.dispose();
+        do rivalPrev.dispose();
+        do Memory.deAlloc(this);
         return;
     }
 
