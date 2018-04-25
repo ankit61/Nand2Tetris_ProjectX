@@ -19,10 +19,10 @@ class Game {
         let random = RandomGenerator.new();
         let rivals = Array.new(rivalsSize);
         let bullets = BulletsArray.new(200);
-        let rivals[0] = Rival.new(Pair.new(Util.maxX() / 4, Util.maxY() / 4), 100, 0);
         let shootingProbability = 4;
-        let rivals[1] = Rival.new(Pair.new(Util.maxX(), Util.maxY()), 5, 5);
-        let rivals[2] = Rival.new(Pair.new(Util.maxX() / 4, Util.maxY() / 2), 90, 5);
+        let rivals[0] = Rival.new(Pair.new(Util.maxX() / 4, Util.maxY() / 4), 100, 0);
+        let rivals[1] = Rival.new(Pair.new(Util.maxX() * 3 / 4, Util.maxY() / 4), 5, 5);
+        let rivals[2] = Rival.new(Pair.new(Util.maxX() / 4, Util.maxY() * 3 / 4), 90, 5);
         let bulletsSize = 0;
         return this;
     }
@@ -35,29 +35,37 @@ class Game {
             do tempRival.draw();
             let i = i + 1;
         }
-
         do player.draw();
         while(true) {
-            let iterator = bullets.getHead();
-            let prev = null;
-            while(~(iterator = null)) {
-                let tempBullet = iterator.getBullet();
-                do tempBullet.move();
-                if((tempBullet.onEdge()) & (~tempBullet.shouldBounce())) {
-                    let iterator = bullets.erase(prev);
-                    let tempBullet = null;
+            do controlBullets();
+            do controlRivals();
+            do controlPlayer();
+            do Sys.wait(100);
+        }
+        return;
+    }
+
+    method void controlBullets() {
+        let iterator = bullets.getHead();
+        let prev = null;
+        while(~(iterator = null)) {
+            let tempBullet = iterator.getBullet();
+            do tempBullet.move();
+            if((tempBullet.onEdge()) & (~tempBullet.shouldBounce())) {
+                let iterator = bullets.erase(prev);
+                let tempBullet = null;
+            }
+            else {
+                let prev = iterator;
+                let iterator = iterator.getNext();       
+            }
+            if(~(temp = null)) {
+                if(tempBullet.inCollisionPlayer(player)) {
+                    do gameOver();
                 }
-                else {
-                    let prev = iterator;
-                    let iterator = iterator.getNext();       
-                }
-                if(~(tempBullet = null)) {
-                    if(tempBullet.inCollisionPlayer(player)) {
-                        return;
-                    }
-                }
+                let i = 0;
                 while(i < rivalsSize) {
-                    if((~(rivals[i] = null)) & (~(tempBullet = null))) {
+                    if((~(rivals[i] = null))) {
                         let tempRival = rivals[i];
                         if(tempBullet.inCollisionRival(tempRival)) {
                             do tempRival.die();
@@ -67,23 +75,42 @@ class Game {
                     let i = i + 1;
                 }
             }
-            let i = 0;
-            while(i < rivalsSize) {
-                if(~(rivals[i] = null)) {
-                    let tempRival = rivals[i];
-                    do tempRival.move();
-                    if(random.generate(0, 100) < shootingProbability) {
-                        do bullets.push(tempRival.shoot(player.getPos()));
-                    }
-                }
-                let i = i + 1;
-            }
-            if(Keyboard.keyPressed() = Util.space()) {
-                do bullets.push(player.shoot());
-            }
-            do player.move(Keyboard.keyPressed());
-            do Sys.wait(100);
         }
+        return;
+    }
+
+    method void controlRivals() {
+        let i = 0;
+        while(i < rivalsSize) {
+            if(~(rivals[i] = null)) {
+                let tempRival = rivals[i];
+                do tempRival.move();
+                if(random.generate(0, 100) < shootingProbability) {
+                    let tempBullet = tempRival.shoot(player.getPos());
+                    do bullets.push(tempBullet);
+                    do tempBullet.draw();
+                }
+            }
+            let i = i + 1;
+        }        
+        return;
+    }
+
+    method void gameOver() {
+        do Output.println();
+        do Output.printString("game over");
+        do Output.println();
+        do Sys.halt();
+        return;
+    }
+
+    method void controlPlayer() {
+        if(Keyboard.keyPressed() = Util.space()) {
+            let tempBullet = player.shoot();
+            do tempBullet.draw();
+            do bullets.push(tempBullet);
+        }
+        do player.move(Keyboard.keyPressed());
         return;
     }
 }

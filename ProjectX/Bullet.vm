@@ -65,40 +65,31 @@ return
 function Bullet.move 1
 push argument 0
 pop pointer 0
-push constant 1
-neg
-push constant 1
-neg
+push this 0
+call Pair.getX 1
+push this 0
+call Pair.getY 1
 call Pair.new 2
 pop local 0
-push this 13
-not
+push local 0
+call Util.onEdge 1
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push local 0
-push this 0
-call Pair.assign 2
-pop temp 0
-push local 0
-call Util.onEdge 1
+push this 12
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
-push this 12
-if-goto IF_TRUE2
-goto IF_FALSE2
-label IF_TRUE2
 push pointer 0
 call Bullet.bounce 1
 pop temp 0
-goto IF_END2
-label IF_FALSE2
+goto IF_END1
+label IF_FALSE1
 push pointer 0
 call Bullet.disappear 1
 pop temp 0
-label IF_END2
-label IF_FALSE1
+label IF_END1
+label IF_FALSE0
 push local 0
 push this 1
 call Pair.plusEquals 2
@@ -116,14 +107,13 @@ call Pair.getY 1
 eq
 not
 or
-if-goto IF_TRUE3
-goto IF_FALSE3
-label IF_TRUE3
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
 push pointer 0
 call Bullet.undraw 1
 pop temp 0
-label IF_FALSE3
-label IF_FALSE0
+label IF_FALSE2
 push this 0
 push local 0
 call Pair.assign 2

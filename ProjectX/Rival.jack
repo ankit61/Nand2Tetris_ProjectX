@@ -72,24 +72,24 @@ class Rival {
         var Bullet b;
         var Pair bulletVelocity;
         let bulletVelocity = Pair.new(0,0);
-        if(shootAt.getX() - pos.getX() < 0) {
+        if(shootAt.getX() < pos.getX()) {
             do bulletVelocity.setX(-Util.bulletSpeed());
         }
         else {
-            if(shootAt.getX() - pos.getX() > 0) {
+            if(shootAt.getX() > pos.getX()) {
                 do bulletVelocity.setX(Util.bulletSpeed());
             }
         }
 
-        if(shootAt.getY() - pos.getY() < 0) {
+        if(shootAt.getY() < pos.getY()) {
             do bulletVelocity.setY(-Util.bulletSpeed());
         }
         else {
-            if(shootAt.getY() - pos.getY() > 0) {
+            if(shootAt.getY() > pos.getY()) {
                 do bulletVelocity.setY(Util.bulletSpeed());
             }
         }
-        let b = Bullet.new(pos, bulletVelocity, false);
+        let b = Bullet.new(pos, bulletVelocity, true);
         do bulletVelocity.dispose();
         return b;
     }

@@ -203,8 +203,6 @@ push argument 1
 call Pair.getX 1
 push this 0
 call Pair.getX 1
-sub
-push constant 0
 lt
 if-goto IF_TRUE0
 goto IF_FALSE0
@@ -220,8 +218,6 @@ push argument 1
 call Pair.getX 1
 push this 0
 call Pair.getX 1
-sub
-push constant 0
 gt
 if-goto IF_TRUE1
 goto IF_FALSE1
@@ -236,8 +232,6 @@ push argument 1
 call Pair.getY 1
 push this 0
 call Pair.getY 1
-sub
-push constant 0
 lt
 if-goto IF_TRUE2
 goto IF_FALSE2
@@ -253,8 +247,6 @@ push argument 1
 call Pair.getY 1
 push this 0
 call Pair.getY 1
-sub
-push constant 0
 gt
 if-goto IF_TRUE3
 goto IF_FALSE3
@@ -268,6 +260,7 @@ label IF_END2
 push this 0
 push local 1
 push constant 0
+not
 call Bullet.new 3
 pop local 0
 push local 1

@@ -8,8 +8,8 @@ class Player {
     
     constructor Player new(Pair p) {
         let pos = Pair.new(p.getX(), p.getY());
-        let width = 4;
-        let height = 4;
+        let width = Util.getPersonWidth();
+        let height = Util.getPersonHeight();
         let velocity = Pair.new(2, 2);
         let bulletVelocity = Pair.new(2, 0);
         return this;
@@ -48,7 +48,7 @@ class Player {
         return pos;
     }
 
-    method void draw() {
+    method void draw(   ) {
         do drawBase(pos.getX(), pos.getY());
         do drawBase(pos.getX() + 2, pos.getY());
         do drawBase(pos.getX(), pos.getY() + 2);
@@ -106,7 +106,7 @@ class Player {
     }
 
     method int getY() {
-        return pos.getX();
+        return pos.getY();
     }
 
     method int getWidth() {

@@ -7,7 +7,7 @@ class Util {
     }
 
     function int bulletSpeed() {
-        return 4;
+        return 3;
     }
     
     function int scalingFactor() {

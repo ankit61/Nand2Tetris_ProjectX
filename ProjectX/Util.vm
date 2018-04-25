@@ -27,7 +27,7 @@ pop temp 0
 push constant 0
 return
 function Util.bulletSpeed 0
-push constant 4
+push constant 3
 return
 function Util.scalingFactor 0
 push constant 8

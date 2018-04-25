@@ -37,21 +37,18 @@ class Bullet {
     
     method Pair move() {
         var Pair newPos;
-        let newPos = Pair.new(-1,-1);
-        if(~hasDisappeared)  {
-            do newPos.assign(pos);
-            if(Util.onEdge(newPos)) {
-                if(willBounce) {
-                    do bounce();
-                }
-                else {
-                    do disappear();
-                }
+        let newPos = Pair.new(pos.getX(), pos.getY());
+        if(Util.onEdge(newPos)) {
+            if(willBounce) {
+                do bounce();
             }
-            do newPos.plusEquals(velocity);
-            if(~(newPos.getX() = pos.getX()) | ~(pos.getY() = newPos.getY())) {
-                do undraw();
+            else {
+                do disappear();
             }
+        }
+        do newPos.plusEquals(velocity);
+        if(~(newPos.getX() = pos.getX()) | ~(pos.getY() = newPos.getY())) {
+            do undraw();
         }
         do pos.assign(newPos);
         do newPos.dispose();

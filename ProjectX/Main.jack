@@ -3,9 +3,6 @@ class Main {
         var Game g;
         let g = Game.new();
         do g.run();
-        do Output.println();
-        do Output.printString("game over");
-        do Output.println();
         return;
     }
 }
