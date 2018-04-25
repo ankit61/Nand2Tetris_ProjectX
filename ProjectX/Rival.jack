@@ -1,5 +1,5 @@
 class Rival {
-    field Pair pos;
+    field Pair pos, bulletStart;
     static int width, height;
     field int probabilityChangeDirections, probabilityToMove, probabilityToStop;
     field int randomIndex;
@@ -10,6 +10,7 @@ class Rival {
     constructor Rival new(Pair p, int pMove, int pStop) {
         let pos = Pair.new(p.getX(), p.getY());
         let width = Util.getPersonWidth();
+        let bulletStart = Pair.new(pos.getX(), pos.getY());
         let probabilityChangeDirections = 5;
         let probabilityToMove = pMove;
         let probabilityToStop = pStop;
@@ -72,23 +73,33 @@ class Rival {
         var Pair bulletVelocity;
         let bulletVelocity = Pair.new(0,0);
         if(shootAt.getX() < pos.getX()) {
+            do bulletStart.setX(pos.getX() - Util.getBulletWidth());
             do bulletVelocity.setX(-Util.bulletSpeed());
         }
         else {
             if(shootAt.getX() > pos.getX()) {
+                do bulletStart.setX(pos.getX() + width);
                 do bulletVelocity.setX(Util.bulletSpeed());
+            }
+            else {
+                do bulletStart.setX(pos.getX() + (width / 2));
             }
         }
 
         if(shootAt.getY() < pos.getY()) {
+            do bulletStart.setY(pos.getY() - Util.getBulletWidth());
             do bulletVelocity.setY(-Util.bulletSpeed());
         }
         else {
             if(shootAt.getY() > pos.getY()) {
+                do bulletStart.setY(pos.getY() + height);
                 do bulletVelocity.setY(Util.bulletSpeed());
             }
+            else {
+                do bulletStart.setY(pos.getY() + (height / 2));
+            }
         }
-        let b = Bullet.new(pos, bulletVelocity, false);
+        let b = Bullet.new(bulletStart, bulletVelocity, false);
         do bulletVelocity.dispose();
         return b;
     }
