@@ -1,14 +1,20 @@
 class Rival {
     field Pair pos, bulletStart;
-    static int width, height;
+    field RivalNode rivalIt;
+    field Rival rival;
+    field int width, height;
+    field int id;
     field int probabilityChangeDirections, probabilityToMove, probabilityToStop;
     field int randomIndex;
     field Pair velocity;
+    field Pair shouldMove;
     field int memAddress;
     field RandomGenerator random;
 
-    constructor Rival new(Pair p, int pMove, int pStop) {
+    constructor Rival new(Pair p, int pMove, int pStop, int idNum) {
         let pos = Pair.new(p.getX(), p.getY());
+        let shouldMove = true;
+        let id = idNum;
         let width = Util.getPersonWidth();
         let bulletStart = Pair.new(pos.getX(), pos.getY());
         let probabilityChangeDirections = 5;
@@ -22,7 +28,7 @@ class Rival {
         return this;
     }
 
-    method Pair move() {
+    method Pair move(LinkedListRivals rivals) {
         var Pair newPos;
         let newPos = Pair.new(pos.getX(), pos.getY());
         if(random.generate(0, 100) < probabilityToMove) {
@@ -33,10 +39,25 @@ class Rival {
                 do changeDirection();
             }
             do newPos.plusEquals(velocity);
-            if(~(pos.getX() = newPos.getX()) | ~(pos.getY() = newPos.getY())) {
-                do undraw();
+            let rivalIt = rivals.getHead();
+            while(~(rivalIt = null)) {
+                let rival = rivalIt.getRival();
+                if(~(id = rival.getId())) {
+                    if(inCollision(newPos, rival)) {
+                        let shouldMove = false;
+                    }
+                }
+                let rivalIt = rivalIt.getNext();
             }
-            do pos.assign(newPos);
+            if(shouldMove) {
+                if(~(pos.getX() = newPos.getX()) | ~(pos.getY() = newPos.getY())) {
+                    do undraw();
+                }
+                do pos.assign(newPos);
+            }
+            else {
+                let shouldMove = true;
+            }
             do draw();
             if(random.generate(0, 100) < probabilityToStop) {
                 let probabilityToMove = probabilityToMove - 100;
@@ -44,6 +65,18 @@ class Rival {
         }
         do newPos.dispose();
         return pos;
+    }
+
+    method int getId() {
+        return id;
+    }
+
+    method bool inCollision(Pair p, Rival r) {
+        if(((p.getX() + width) > r.getX()) & (p.getX() < (r.getX() + r.getWidth())) & 
+           ((p.getY() + height) > r.getY()) & (p.getY() < (r.getY() + r.getHeight()))) {
+            return true;  
+           }
+        return false;
     }
 
     method void changeDirection() {

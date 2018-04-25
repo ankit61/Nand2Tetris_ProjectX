@@ -46,18 +46,20 @@ class Player {
             do bulletVelocity.setX(0);
             do bulletVelocity.setY(Util.bulletSpeed());
         }
-        
-        if(~(pos.getX() = newPos.getX()) | ~(pos.getY() = newPos.getY())) {
-            do undraw();
-        }
         let rivalIt = rivals.getHead();
         while(~(rivalIt = null)) {
             if(inCollision(newPos, rivalIt.getRival())) {
                 let shouldMove = false;
+                let rivalIt = null;
             }
-            let rivalIt = rivalIt.getNext();
+            else {
+                let rivalIt = rivalIt.getNext();
+            }
         }
         if(shouldMove) {
+            if(~(pos.getX() = newPos.getX()) | ~(pos.getY() = newPos.getY())) {
+                do undraw();
+            }
             do pos.assign(newPos);
         }
         else {
@@ -71,7 +73,7 @@ class Player {
     method bool inCollision(Pair p, Rival r) {
         if(((p.getX() + width) > r.getX()) & (p.getX() < (r.getX() + r.getWidth())) & 
            ((p.getY() + height) > r.getY()) & (p.getY() < (r.getY() + r.getHeight()))) {
-            return true;  
+            return true; 
            }
         return false;
     }

@@ -1,5 +1,5 @@
 function Rival.new 0
-push constant 9
+push constant 15
 call Memory.alloc 1
 pop pointer 0
 push argument 0
@@ -8,8 +8,13 @@ push argument 0
 call Pair.getY 1
 call Pair.new 2
 pop this 0
+push constant 0
+not
+pop this 12
+push argument 3
+pop this 6
 call Util.getPersonWidth 0
-pop static 0
+pop this 4
 push this 0
 call Pair.getX 1
 push this 0
@@ -17,21 +22,21 @@ call Pair.getY 1
 call Pair.new 2
 pop this 1
 push constant 5
-pop this 2
+pop this 7
 push argument 1
-pop this 3
-push argument 2
-pop this 4
-call Util.getPersonHeight 0
-pop static 1
-call RandomGenerator.new 0
 pop this 8
+push argument 2
+pop this 9
+call Util.getPersonHeight 0
+pop this 5
+call RandomGenerator.new 0
+pop this 14
 push constant 2
 push constant 2
 call Pair.new 2
-pop this 6
+pop this 11
 push constant 0
-pop this 5
+pop this 10
 push pointer 0
 return
 function Rival.move 1
@@ -43,33 +48,33 @@ push this 0
 call Pair.getY 1
 call Pair.new 2
 pop local 0
-push this 8
+push this 14
 push constant 0
 push constant 100
 call RandomGenerator.generate 3
-push this 3
+push this 8
 lt
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 3
+push this 8
 push constant 100
 lt
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
-push this 3
+push this 8
 push constant 100
 add
-pop this 3
+pop this 8
 label IF_FALSE1
 push local 0
 call Util.onEdge 1
-push this 8
+push this 14
 push constant 0
 push constant 100
 call RandomGenerator.generate 3
-push this 2
+push this 7
 lt
 or
 if-goto IF_TRUE2
@@ -80,9 +85,50 @@ call Rival.changeDirection 1
 pop temp 0
 label IF_FALSE2
 push local 0
-push this 6
+push this 11
 call Pair.plusEquals 2
 pop temp 0
+push argument 1
+call LinkedListRivals.getHead 1
+pop this 2
+label WHILE_EXP0
+push this 2
+push constant 0
+eq
+not
+not
+if-goto WHILE_END0
+push this 2
+call RivalNode.getRival 1
+pop this 3
+push this 6
+push this 3
+call Rival.getId 1
+eq
+not
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push pointer 0
+push local 0
+push this 3
+call Rival.inCollision 3
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 0
+pop this 12
+label IF_FALSE4
+label IF_FALSE3
+push this 2
+call RivalNode.getNext 1
+pop this 2
+goto WHILE_EXP0
+label WHILE_END0
+push this 12
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
 push this 0
 call Pair.getX 1
 push local 0
@@ -96,79 +142,135 @@ call Pair.getY 1
 eq
 not
 or
-if-goto IF_TRUE3
-goto IF_FALSE3
-label IF_TRUE3
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
 push pointer 0
 call Rival.undraw 1
 pop temp 0
-label IF_FALSE3
+label IF_FALSE6
 push this 0
 push local 0
 call Pair.assign 2
 pop temp 0
+goto IF_END5
+label IF_FALSE5
+push constant 0
+not
+pop this 12
+label IF_END5
 push pointer 0
 call Rival.draw 1
 pop temp 0
-push this 8
+push this 14
 push constant 0
 push constant 100
 call RandomGenerator.generate 3
-push this 4
+push this 9
 lt
-if-goto IF_TRUE4
-goto IF_FALSE4
-label IF_TRUE4
-push this 3
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 8
 push constant 100
 sub
-pop this 3
-label IF_FALSE4
+pop this 8
+label IF_FALSE7
 label IF_FALSE0
 push local 0
 call Pair.dispose 1
 pop temp 0
 push this 0
 return
-function Rival.changeDirection 0
+function Rival.getId 0
 push argument 0
 pop pointer 0
 push this 6
-push this 8
+return
+function Rival.inCollision 0
+push argument 0
+pop pointer 0
+push argument 1
+call Pair.getX 1
+push this 4
+add
+push argument 2
+call Rival.getX 1
+gt
+push argument 1
+call Pair.getX 1
+push argument 2
+call Rival.getX 1
+push argument 2
+call Rival.getWidth 1
+add
+lt
+and
+push argument 1
+call Pair.getY 1
+push this 5
+add
+push argument 2
+call Rival.getY 1
+gt
+and
+push argument 1
+call Pair.getY 1
+push argument 2
+call Rival.getY 1
+push argument 2
+call Rival.getHeight 1
+add
+lt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return
+function Rival.changeDirection 0
+push argument 0
+pop pointer 0
+push this 11
+push this 14
 push constant 2
 neg
 push constant 2
 call RandomGenerator.generate 3
 call Pair.setX 2
 pop temp 0
-push this 6
+push this 11
 call Pair.getX 1
 push constant 0
 eq
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 6
+push this 11
 push constant 1
 call Pair.setX 2
 pop temp 0
 label IF_FALSE0
-push this 6
-push this 8
+push this 11
+push this 14
 push constant 2
 neg
 push constant 2
 call RandomGenerator.generate 3
 call Pair.setY 2
 pop temp 0
-push this 6
+push this 11
 call Pair.getY 1
 push constant 0
 eq
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
-push this 6
+push this 11
 push constant 1
 call Pair.setY 2
 pop temp 0
@@ -179,8 +281,8 @@ function Rival.draw 0
 push argument 0
 pop pointer 0
 push this 0
-push static 0
-push static 1
+push this 4
+push this 5
 push constant 0
 not
 call Util.drawRectangle 4
@@ -191,8 +293,8 @@ function Rival.undraw 0
 push argument 0
 pop pointer 0
 push this 0
-push static 0
-push static 1
+push this 4
+push this 5
 push constant 0
 call Util.drawRectangle 4
 pop temp 0
@@ -238,7 +340,7 @@ label IF_TRUE1
 push this 1
 push this 0
 call Pair.getX 1
-push static 0
+push this 4
 add
 call Pair.setX 2
 pop temp 0
@@ -251,7 +353,7 @@ label IF_FALSE1
 push this 1
 push this 0
 call Pair.getX 1
-push static 0
+push this 4
 push constant 2
 call Math.divide 2
 add
@@ -292,7 +394,7 @@ label IF_TRUE3
 push this 1
 push this 0
 call Pair.getY 1
-push static 1
+push this 5
 add
 call Pair.setY 2
 pop temp 0
@@ -305,7 +407,7 @@ label IF_FALSE3
 push this 1
 push this 0
 call Pair.getY 1
-push static 1
+push this 5
 push constant 2
 call Math.divide 2
 add
@@ -354,22 +456,22 @@ return
 function Rival.getWidth 0
 push argument 0
 pop pointer 0
-push static 0
+push this 4
 return
 function Rival.getHeight 0
 push argument 0
 pop pointer 0
-push static 1
+push this 5
 return
 function Rival.getProbabilityMove 0
 push argument 0
 pop pointer 0
-push this 3
+push this 8
 return
 function Rival.getProbabilityStop 0
 push argument 0
 pop pointer 0
-push this 4
+push this 9
 return
 function Rival.dispose 0
 push argument 0
@@ -377,10 +479,10 @@ pop pointer 0
 push this 0
 call Pair.dispose 1
 pop temp 0
-push this 6
+push this 11
 call Pair.dispose 1
 pop temp 0
-push this 8
+push this 14
 call RandomGenerator.dispose 1
 pop temp 0
 push pointer 0

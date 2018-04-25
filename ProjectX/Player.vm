@@ -158,26 +158,6 @@ call Util.bulletSpeed 0
 call Pair.setY 2
 pop temp 0
 label IF_FALSE3
-push this 0
-call Pair.getX 1
-push local 0
-call Pair.getX 1
-eq
-not
-push this 0
-call Pair.getY 1
-push local 0
-call Pair.getY 1
-eq
-not
-or
-if-goto IF_TRUE4
-goto IF_FALSE4
-label IF_TRUE4
-push pointer 0
-call Player.undraw 1
-pop temp 0
-label IF_FALSE4
 push argument 2
 call LinkedListRivals.getHead 1
 pop this 3
@@ -193,31 +173,55 @@ push local 0
 push this 3
 call RivalNode.getRival 1
 call Player.inCollision 3
-if-goto IF_TRUE5
-goto IF_FALSE5
-label IF_TRUE5
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
 push constant 0
 pop this 4
-label IF_FALSE5
+push constant 0
+pop this 3
+goto IF_END4
+label IF_FALSE4
 push this 3
 call RivalNode.getNext 1
 pop this 3
+label IF_END4
 goto WHILE_EXP0
 label WHILE_END0
 push this 4
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 0
+call Pair.getX 1
+push local 0
+call Pair.getX 1
+eq
+not
+push this 0
+call Pair.getY 1
+push local 0
+call Pair.getY 1
+eq
+not
+or
 if-goto IF_TRUE6
 goto IF_FALSE6
 label IF_TRUE6
+push pointer 0
+call Player.undraw 1
+pop temp 0
+label IF_FALSE6
 push this 0
 push local 0
 call Pair.assign 2
 pop temp 0
-goto IF_END6
-label IF_FALSE6
+goto IF_END5
+label IF_FALSE5
 push constant 0
 not
 pop this 4
-label IF_END6
+label IF_END5
 push pointer 0
 call Player.draw 1
 pop temp 0

@@ -8,7 +8,9 @@ push argument 0
 call Rival.getProbabilityMove 1
 push argument 0
 call Rival.getProbabilityStop 1
-call Rival.new 3
+push argument 0
+call Rival.getId 1
+call Rival.new 4
 pop this 0
 push argument 1
 pop this 1
@@ -43,7 +45,9 @@ push argument 1
 call Rival.getProbabilityMove 1
 push argument 1
 call Rival.getProbabilityStop 1
-call Rival.new 3
+push argument 1
+call Rival.getId 1
+call Rival.new 4
 pop this 0
 push constant 0
 return

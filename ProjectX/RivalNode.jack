@@ -3,7 +3,7 @@ class RivalNode {
     field RivalNode next;
 
     constructor RivalNode new(Rival curRival, RivalNode curNext) {
-        let r = Rival.new(curRival.getPos(), curRival.getProbabilityMove(), curRival.getProbabilityStop());
+        let r = Rival.new(curRival.getPos(), curRival.getProbabilityMove(), curRival.getProbabilityStop(), curRival.getId());
         let next = curNext;
         return this;
     }
@@ -23,7 +23,7 @@ class RivalNode {
 
     method void setRival(Rival newRival) {
         do r.dispose();
-        let r = Rival.new(newRival.getPos(), newRival.getProbabilityMove(), newRival.getProbabilityStop());
+        let r = Rival.new(newRival.getPos(), newRival.getProbabilityMove(), newRival.getProbabilityStop(), newRival.getId());
         return;
     }
 
