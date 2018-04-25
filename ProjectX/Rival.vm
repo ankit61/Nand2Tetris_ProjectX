@@ -1,5 +1,5 @@
 function Rival.new 0
-push constant 9
+push constant 8
 call Memory.alloc 1
 pop pointer 0
 push argument 0
@@ -19,11 +19,11 @@ pop this 3
 call Util.getPersonHeight 0
 pop static 1
 call RandomGenerator.new 0
-pop this 8
+pop this 7
 push constant 2
 push constant 2
 call Pair.new 2
-pop this 6
+pop this 5
 push constant 0
 pop this 4
 push pointer 0
@@ -37,7 +37,7 @@ push this 0
 call Pair.getY 1
 call Pair.new 2
 pop local 0
-push this 8
+push this 7
 push constant 0
 push constant 100
 call RandomGenerator.generate 3
@@ -59,7 +59,7 @@ pop this 2
 label IF_FALSE1
 push local 0
 call Util.onEdge 1
-push this 8
+push this 7
 push constant 0
 push constant 100
 call RandomGenerator.generate 3
@@ -74,7 +74,7 @@ call Rival.changeDirection 1
 pop temp 0
 label IF_FALSE2
 push local 0
-push this 6
+push this 5
 call Pair.plusEquals 2
 pop temp 0
 push this 0
@@ -104,7 +104,7 @@ pop temp 0
 push pointer 0
 call Rival.draw 1
 pop temp 0
-push this 8
+push this 7
 push constant 0
 push constant 100
 call RandomGenerator.generate 3
@@ -127,42 +127,42 @@ return
 function Rival.changeDirection 0
 push argument 0
 pop pointer 0
-push this 6
-push this 8
+push this 5
+push this 7
 push constant 2
 neg
 push constant 2
 call RandomGenerator.generate 3
 call Pair.setX 2
 pop temp 0
-push this 6
+push this 5
 call Pair.getX 1
 push constant 0
 eq
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 6
+push this 5
 push constant 1
 call Pair.setX 2
 pop temp 0
 label IF_FALSE0
-push this 6
-push this 8
+push this 5
+push this 7
 push constant 2
 neg
 push constant 2
 call RandomGenerator.generate 3
 call Pair.setY 2
 pop temp 0
-push this 6
+push this 5
 call Pair.getY 1
 push constant 0
 eq
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
-push this 6
+push this 5
 push constant 1
 call Pair.setY 2
 pop temp 0
@@ -278,6 +278,11 @@ call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return
+function Rival.getPos 0
+push argument 0
+pop pointer 0
+push this 0
+return
 function Rival.getX 0
 push argument 0
 pop pointer 0
@@ -299,4 +304,31 @@ function Rival.getHeight 0
 push argument 0
 pop pointer 0
 push static 1
+return
+function Rival.getProbabilityMove 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Rival.getProbabilityStop 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function Rival.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Pair.dispose 1
+pop temp 0
+push this 5
+call Pair.dispose 1
+pop temp 0
+push this 7
+call RandomGenerator.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
 return

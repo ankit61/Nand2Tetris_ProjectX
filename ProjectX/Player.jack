@@ -1,5 +1,5 @@
 class Player {
-    field Pair pos;
+    field Pair pos, bulletStart;
     static int width;
     static int height;
     static Pair velocity;
@@ -11,7 +11,8 @@ class Player {
         let width = Util.getPersonWidth();
         let height = Util.getPersonHeight();
         let velocity = Pair.new(2, 2);
-        let bulletVelocity = Pair.new(2, 0);
+        let bulletVelocity = Pair.new(Util.bulletSpeed(), 0);
+        let bulletStart = Pair.new(pos.getX() + width, pos.getY());
         return this;
     }
 
@@ -20,21 +21,25 @@ class Player {
         let newPos = Pair.new(pos.getX(), pos.getY());
         if(keyPressed = 130) { // left
             do newPos.updateX(-velocity.getX());
+            let bulletStart = Pair.new(pos.getX() - Util.getBulletWidth(), pos.getY());
             do bulletVelocity.setX(-Util.bulletSpeed());
             do bulletVelocity.setY(0);
         }
         if(keyPressed = 131) { // up 
             do newPos.updateY(-velocity.getY());
+            let bulletStart = Pair.new(pos.getX(), pos.getY() - Util.getBulletHeight());
             do bulletVelocity.setX(0);
             do bulletVelocity.setY(-Util.bulletSpeed());
         }
         if(keyPressed = 132) { // right
             do newPos.updateX(velocity.getX());
+            let bulletStart = Pair.new(pos.getX() + width, pos.getY());
             do bulletVelocity.setX(Util.bulletSpeed());
             do bulletVelocity.setY(0);
         }
         if(keyPressed = 133) { // down
             do newPos.updateY(velocity.getY());
+            let bulletStart = Pair.new(pos.getX(), pos.getY() + height);
             do bulletVelocity.setX(0);
             do bulletVelocity.setY(Util.bulletSpeed());
         }
@@ -48,7 +53,7 @@ class Player {
         return pos;
     }
 
-    method void draw(   ) {
+    method void draw() {
         do drawBase(pos.getX(), pos.getY());
         do drawBase(pos.getX() + 2, pos.getY());
         do drawBase(pos.getX(), pos.getY() + 2);
@@ -84,7 +89,7 @@ class Player {
 
     method Bullet shoot() {
         var Bullet b;
-        let b = Bullet.new(pos, bulletVelocity, true);
+        let b = Bullet.new(bulletStart, bulletVelocity, true);
         return b;
     }
 

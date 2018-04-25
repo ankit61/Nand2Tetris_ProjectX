@@ -282,6 +282,8 @@ push argument 0
 pop pointer 0
 push this 0
 call Pair.getX 1
+push this 8
+add
 push argument 1
 call Rival.getX 1
 gt
@@ -296,6 +298,8 @@ lt
 and
 push this 0
 call Pair.getY 1
+push this 9
+add
 push argument 1
 call Rival.getY 1
 gt
@@ -323,6 +327,8 @@ push argument 0
 pop pointer 0
 push this 0
 call Pair.getX 1
+push this 8
+add
 push argument 1
 call Player.getX 1
 gt
@@ -337,6 +343,8 @@ lt
 and
 push this 0
 call Pair.getY 1
+push this 9
+add
 push argument 1
 call Player.getY 1
 gt

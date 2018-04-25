@@ -26,5 +26,11 @@ class RandomGenerator {
         return Util.mod(Util.abs(seeds[index]), high - low + 1) + low;
     }
 
+    method void dispose() {
+        do seeds.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
 
 }

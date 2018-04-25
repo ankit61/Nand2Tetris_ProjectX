@@ -3,7 +3,6 @@ class Rival {
     static int width, height;
     field int probabilityChangeDirections, probabilityToMove, probabilityToStop;
     field int randomIndex;
-    field Array seeds;
     field Pair velocity;
     field int memAddress;
     field RandomGenerator random;
@@ -100,6 +99,10 @@ class Rival {
         return;
     }
 
+    method pair getPos() {
+        return pos;
+    }
+
     method int getX() {
         return pos.getX();
     }
@@ -114,5 +117,21 @@ class Rival {
 
     method int getHeight() {
         return height;
+    }
+
+    method int getProbabilityMove() {
+        return probabilityToMove;
+    }
+
+    method int getProbabilityStop() {
+        return probabilityToStop;
+    }
+
+    method void dispose() {
+        do pos.dispose();
+        do velocity.dispose();
+        do random.dispose();
+        do Memory.deAlloc(this);
+        return;
     }
 }

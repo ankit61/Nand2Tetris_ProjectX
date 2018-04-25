@@ -100,16 +100,16 @@ class Bullet {
     }
 
     method bool inCollisionRival(Rival r) {
-        if((pos.getX() > r.getX()) & (pos.getX() < (r.getX() + r.getWidth())) & 
-            (pos.getY() > r.getY()) & (pos.getY() < (r.getY() + r.getHeight()))) {
+        if(((pos.getX() + width) > r.getX()) & (pos.getX() < (r.getX() + r.getWidth())) & 
+            ((pos.getY() + height) > r.getY()) & (pos.getY() < (r.getY() + r.getHeight()))) {
                 return true;
         }
         return false;
     }
 
     method bool inCollisionPlayer(Player p) {
-        if((pos.getX() > p.getX()) & (pos.getX() < (p.getX() + p.getWidth())) & 
-            (pos.getY() > p.getY()) & (pos.getY() < (p.getY() + p.getHeight()))) {
+        if(((pos.getX() + width) > p.getX()) & (pos.getX() < (p.getX() + p.getWidth())) & 
+           ((pos.getY() + height) > p.getY()) & (pos.getY() < (p.getY() + p.getHeight()))) {
                 return true;
         }
         return false;

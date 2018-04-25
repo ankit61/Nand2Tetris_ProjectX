@@ -1,0 +1,60 @@
+function RivalNode.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+call Rival.getPos 1
+push argument 0
+call Rival.getProbabilityMove 1
+push argument 0
+call Rival.getProbabilityStop 1
+call Rival.new 3
+pop this 0
+push argument 1
+pop this 1
+push pointer 0
+return
+function RivalNode.getRival 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function RivalNode.getNext 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function RivalNode.setNext 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 1
+push constant 0
+return
+function RivalNode.setRival 0
+push argument 0
+pop pointer 0
+push this 0
+call Rival.dispose 1
+pop temp 0
+push argument 1
+call Rival.getPos 1
+push argument 1
+call Rival.getProbabilityMove 1
+push argument 1
+call Rival.getProbabilityStop 1
+call Rival.new 3
+pop this 0
+push constant 0
+return
+function RivalNode.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Rival.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

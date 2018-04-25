@@ -132,13 +132,7 @@ function Util.getScreenAddress 0
 push constant 16384
 return
 function Util.maxX 0
-push constant 511
-call Util.scalingFactor 0
-call Math.divide 2
-push constant 32
-call Util.scalingFactor 0
-call Math.divide 2
-sub
+push constant 58
 return
 function Util.minX 0
 push constant 0

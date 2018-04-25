@@ -1,5 +1,5 @@
 function Player.new 0
-push constant 2
+push constant 3
 call Memory.alloc 1
 pop pointer 0
 push argument 0
@@ -16,10 +16,18 @@ push constant 2
 push constant 2
 call Pair.new 2
 pop static 2
-push constant 2
+call Util.bulletSpeed 0
 push constant 0
 call Pair.new 2
 pop static 3
+push this 0
+call Pair.getX 1
+push static 0
+add
+push this 0
+call Pair.getY 1
+call Pair.new 2
+pop this 1
 push pointer 0
 return
 function Player.move 1
@@ -43,6 +51,14 @@ call Pair.getX 1
 neg
 call Pair.updateX 2
 pop temp 0
+push this 0
+call Pair.getX 1
+call Util.getBulletWidth 0
+sub
+push this 0
+call Pair.getY 1
+call Pair.new 2
+pop this 1
 push static 3
 call Util.bulletSpeed 0
 neg
@@ -65,6 +81,14 @@ call Pair.getY 1
 neg
 call Pair.updateY 2
 pop temp 0
+push this 0
+call Pair.getX 1
+push this 0
+call Pair.getY 1
+call Util.getBulletHeight 0
+sub
+call Pair.new 2
+pop this 1
 push static 3
 push constant 0
 call Pair.setX 2
@@ -86,6 +110,14 @@ push static 2
 call Pair.getX 1
 call Pair.updateX 2
 pop temp 0
+push this 0
+call Pair.getX 1
+push static 0
+add
+push this 0
+call Pair.getY 1
+call Pair.new 2
+pop this 1
 push static 3
 call Util.bulletSpeed 0
 call Pair.setX 2
@@ -106,6 +138,14 @@ push static 2
 call Pair.getY 1
 call Pair.updateY 2
 pop temp 0
+push this 0
+call Pair.getX 1
+push this 0
+call Pair.getY 1
+push static 1
+add
+call Pair.new 2
+pop this 1
 push static 3
 push constant 0
 call Pair.setX 2
@@ -202,113 +242,113 @@ call Util.scale2Screen 1
 push constant 32
 call Math.multiply 2
 add
-pop this 1
-push this 1
+pop this 2
+push this 2
 push constant 0
 add
 push constant 1
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 32
 add
 push constant 21931
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 64
 add
 push constant 11221
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 96
 add
 push constant 22379
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 128
 add
 push constant 12021
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 160
 add
 push constant 24443
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 192
 add
 push constant 16125
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 224
 add
 push constant 30039
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 256
 add
 push constant 27311
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 288
 add
 push constant 16253
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 320
 add
 push constant 24315
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 352
 add
 push constant 12149
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 384
 add
 push constant 22251
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 416
 add
 push constant 11221
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 448
 add
 push constant 21931
 neg
 call Memory.poke 2
 pop temp 0
-push this 1
+push this 2
 push constant 480
 add
 push constant 1
@@ -331,7 +371,7 @@ return
 function Player.shoot 1
 push argument 0
 pop pointer 0
-push this 0
+push this 1
 push static 3
 push constant 0
 not

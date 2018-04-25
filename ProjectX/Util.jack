@@ -49,7 +49,7 @@ class Util {
     }
 
     function int maxX() {
-        return (511 / Util.scalingFactor()) - (32 / Util.scalingFactor());
+        return 58;
     }
 
     function int minX() {

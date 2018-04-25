@@ -1,0 +1,35 @@
+class RivalNode {
+    field Rival r;
+    field RivalNode next;
+
+    constructor RivalNode new(Rival curRival, RivalNode curNext) {
+        let r = Rival.new(curRival.getPos(), curRival.getProbabilityMove(), curRival.getProbabilityStop());
+        let next = curNext;
+        return this;
+    }
+
+    method Rival getRival() {
+        return r;
+    }
+
+    method RivalNode getNext() {
+        return next;
+    }
+    
+    method void setNext(RivalNode newNext) {
+        let next = newNext;
+        return;
+    }
+
+    method void setRival(Rival newRival) {
+        do r.dispose();
+        let r = Rival.new(newRival.getPos(), newRival.getProbabilityMove(), newRival.getProbabilityStop());
+        return;
+    }
+
+    method void dispose() {
+        do r.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

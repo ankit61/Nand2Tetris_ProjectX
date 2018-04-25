@@ -1,20 +1,20 @@
-class LinkedListBullets {
-    field BulletNode head;
+class LinkedListRivals {
+    field RivalNode head;
     field int sz;
     
-    constructor LinkedListBullets new() {
+    constructor LinkedListRivals new() {
         let head = null;
         let sz = 0;
         return this;
     }
 
-    method void push(Bullet t) {
-        let head = BulletNode.new(t, head);
+    method void push(Rival t) {
+        let head = RivalNode.new(t, head);
         let sz = sz + 1;
         return;
     }
 
-    method BulletNode getHead() {
+    method RivalNode getHead() {
         return head;
     }
 
@@ -22,8 +22,8 @@ class LinkedListBullets {
         return sz;
     }
 
-    method BulletNode erase(BulletNode prev) {
-        var BulletNode temp;
+    method RivalNode erase(RivalNode prev) {
+        var RivalNode temp;
         if(prev = null) { //deleting head
             if(head = null) {
                 do Output.printString("error: deleting from empty list");
@@ -45,12 +45,12 @@ class LinkedListBullets {
     }
 
     method void print() {
-        var BulletNode b;
-        let b = head;
-        while(~(b = null)) {
-            do Output.printInt(b);
+        var RivalNode r;
+        let r = head;
+        while(~(r = null)) {
+            do Output.printInt(r);
             do Output.printString(" ");
-            let b = b.getNext();
+            let r = r.getNext();
         }
         do Output.println();
         return;

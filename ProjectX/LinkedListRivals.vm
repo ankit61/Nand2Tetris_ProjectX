@@ -1,4 +1,4 @@
-function LinkedListBullets.new 0
+function LinkedListRivals.new 0
 push constant 2
 call Memory.alloc 1
 pop pointer 0
@@ -8,12 +8,12 @@ push constant 0
 pop this 1
 push pointer 0
 return
-function LinkedListBullets.push 0
+function LinkedListRivals.push 0
 push argument 0
 pop pointer 0
 push argument 1
 push this 0
-call BulletNode.new 2
+call RivalNode.new 2
 pop this 0
 push this 1
 push constant 1
@@ -21,17 +21,17 @@ add
 pop this 1
 push constant 0
 return
-function LinkedListBullets.getHead 0
+function LinkedListRivals.getHead 0
 push argument 0
 pop pointer 0
 push this 0
 return
-function LinkedListBullets.getSize 0
+function LinkedListRivals.getSize 0
 push argument 0
 pop pointer 0
 push this 1
 return
-function LinkedListBullets.erase 1
+function LinkedListRivals.erase 1
 push argument 0
 pop pointer 0
 push argument 1
@@ -118,23 +118,23 @@ label IF_FALSE1
 push this 0
 pop local 0
 push this 0
-call BulletNode.getNext 1
+call RivalNode.getNext 1
 pop this 0
 push local 0
-call BulletNode.dispose 1
+call RivalNode.dispose 1
 pop temp 0
 goto IF_END0
 label IF_FALSE0
 push argument 1
-call BulletNode.getNext 1
+call RivalNode.getNext 1
 pop local 0
 push argument 1
 push local 0
-call BulletNode.getNext 1
-call BulletNode.setNext 2
+call RivalNode.getNext 1
+call RivalNode.setNext 2
 pop temp 0
 push local 0
-call BulletNode.dispose 1
+call RivalNode.dispose 1
 pop temp 0
 label IF_END0
 push argument 1
@@ -147,9 +147,9 @@ push this 0
 return
 label IF_FALSE2
 push argument 1
-call BulletNode.getNext 1
+call RivalNode.getNext 1
 return
-function LinkedListBullets.print 1
+function LinkedListRivals.print 1
 push argument 0
 pop pointer 0
 push this 0
@@ -171,7 +171,7 @@ call String.appendChar 2
 call Output.printString 1
 pop temp 0
 push local 0
-call BulletNode.getNext 1
+call RivalNode.getNext 1
 pop local 0
 goto WHILE_EXP0
 label WHILE_END0
