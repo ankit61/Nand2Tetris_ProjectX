@@ -44,9 +44,12 @@ add
 pop this 0
 push constant 0
 return
+goto IF_END0
 label IF_FALSE0
+push this 0
 push argument 1
-push constant 0
+add
+call Util.maxX 0
 gt
 if-goto IF_TRUE1
 goto IF_FALSE1
@@ -56,8 +59,10 @@ pop this 0
 push constant 0
 return
 label IF_FALSE1
+push this 0
 push argument 1
-push constant 0
+add
+call Util.minY 0
 lt
 if-goto IF_TRUE2
 goto IF_FALSE2
@@ -67,6 +72,7 @@ pop this 0
 push constant 0
 return
 label IF_FALSE2
+label IF_END0
 push constant 0
 return
 function Pair.getY 0
@@ -90,9 +96,12 @@ add
 pop this 1
 push constant 0
 return
+goto IF_END0
 label IF_FALSE0
+push this 1
 push argument 1
-push constant 0
+add
+call Util.maxY 0
 gt
 if-goto IF_TRUE1
 goto IF_FALSE1
@@ -102,8 +111,10 @@ pop this 1
 push constant 0
 return
 label IF_FALSE1
+push this 1
 push argument 1
-push constant 0
+add
+call Util.minY 0
 lt
 if-goto IF_TRUE2
 goto IF_FALSE2
@@ -113,6 +124,7 @@ pop this 1
 push constant 0
 return
 label IF_FALSE2
+label IF_END0
 push constant 0
 return
 function Pair.dispose 0

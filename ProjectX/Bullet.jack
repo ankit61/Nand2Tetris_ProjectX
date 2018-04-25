@@ -2,7 +2,7 @@ class Bullet {
     field Pair pos, velocity;
     field int t, sign, randomIndex, memAddress, dx, dy, width, height, i;
     field Array seeds;
-    field bool willBounce, hasDisappeared;
+    field bool willBounce;
     field RandomGenerator random;
 
     constructor Bullet new(Pair p, Pair startVel, bool bounceStatus) {
@@ -10,7 +10,6 @@ class Bullet {
         let velocity = Pair.new(startVel.getX(), startVel.getY());
         let t = 2;
         let willBounce = bounceStatus;
-        let hasDisappeared = false;
         let sign = 1;
         let random = RandomGenerator.new();
         let width = Util.getBulletWidth();
@@ -24,9 +23,6 @@ class Bullet {
     }
     
     method void draw() {
-        if(hasDisappeared)  {
-            return;
-        }
         do Util.drawRectangle(pos, width, height, true);
         return;
     }
@@ -62,7 +58,7 @@ class Bullet {
     }
 
     method void bounce() {
-        if((~willBounce) | (hasDisappeared)) {
+        if(~willBounce) {
             return;
         }
         let dx = random.generate(-t, t);
@@ -93,7 +89,6 @@ class Bullet {
     
     method void disappear() {
         do undraw();
-        let hasDisappeared = true;
         return;
     }
     
@@ -126,4 +121,5 @@ class Bullet {
     method Pair getVelocity() {
         return velocity;
     }
+
 }

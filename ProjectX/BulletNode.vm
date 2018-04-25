@@ -5,7 +5,7 @@ pop pointer 0
 push argument 0
 call Bullet.getPos 1
 push argument 0
-call Bullet.getPos 1
+call Bullet.getVelocity 1
 push argument 0
 call Bullet.shouldBounce 1
 call Bullet.new 3

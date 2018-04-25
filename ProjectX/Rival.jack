@@ -89,7 +89,7 @@ class Rival {
                 do bulletVelocity.setY(Util.bulletSpeed());
             }
         }
-        let b = Bullet.new(pos, bulletVelocity, true);
+        let b = Bullet.new(pos, bulletVelocity, false);
         do bulletVelocity.dispose();
         return b;
     }

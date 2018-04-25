@@ -3,7 +3,7 @@ class BulletNode {
     field BulletNode next;
 
     constructor BulletNode new(Bullet curBullet, BulletNode curNext) {
-        let b = Bullet.new(curBullet.getPos(), curBullet.getPos(), curBullet.shouldBounce());
+        let b = Bullet.new(curBullet.getPos(), curBullet.getVelocity(), curBullet.shouldBounce());
         let next = curNext;
         return this;
     }

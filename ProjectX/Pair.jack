@@ -23,13 +23,15 @@ class Pair {
             let x = x + dx;
             return;
         }
-        if(dx > 0) {
-            let x = Util.maxX();
-            return;
-        }
-        if(dx < 0) {
-            let x = Util.minX();
-            return;
+        else {            
+            if((x + dx) > Util.maxX()) {
+                let x = Util.maxX();
+                return;
+            }
+            if((x + dx) < Util.minY()) {
+                let x = Util.minX();
+                return;
+            }
         }
         return;
     }
@@ -43,14 +45,15 @@ class Pair {
             let y = y + dy;
             return;
         }
-        if(dy > 0) {
-            let y = Util.maxY();
-            return;
-        }
-
-        if(dy < 0) {
-            let y = Util.minY();
-            return;
+        else {
+            if((y + dy) > Util.maxY()) {
+                let y = Util.maxY();
+                return;
+            }
+            if((y + dy) < Util.minY()) {
+                let y = Util.minY();
+                return;
+            }
         }
 
         return;
@@ -73,7 +76,7 @@ class Pair {
     }
 
     method void setY(int b) {
-        let y = b;
+       let y = b;
         return;
     }
 }
