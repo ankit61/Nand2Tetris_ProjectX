@@ -25,6 +25,34 @@ call Util.maxX 0
 push constant 4
 call Math.divide 2
 call Util.maxY 0
+push constant 5
+call Math.divide 2
+call Pair.new 2
+push constant 100
+push constant 0
+call Rival.new 3
+call LinkedListRivals.push 2
+pop temp 0
+push this 1
+call Util.maxX 0
+push constant 4
+call Math.divide 2
+call Util.maxY 0
+push constant 2
+call Math.multiply 2
+push constant 5
+call Math.divide 2
+call Pair.new 2
+push constant 5
+push constant 5
+call Rival.new 3
+call LinkedListRivals.push 2
+pop temp 0
+push this 1
+call Util.maxX 0
+push constant 4
+call Math.divide 2
+call Util.maxY 0
 push constant 3
 call Math.multiply 2
 push constant 5
@@ -32,6 +60,21 @@ call Math.divide 2
 call Pair.new 2
 push constant 90
 push constant 5
+call Rival.new 3
+call LinkedListRivals.push 2
+pop temp 0
+push this 1
+call Util.maxX 0
+push constant 4
+call Math.divide 2
+call Util.maxY 0
+push constant 4
+call Math.multiply 2
+push constant 5
+call Math.divide 2
+call Pair.new 2
+push constant 50
+push constant 50
 call Rival.new 3
 call LinkedListRivals.push 2
 pop temp 0
@@ -205,6 +248,9 @@ if-goto WHILE_END0
 push this 6
 call RivalNode.getRival 1
 pop this 11
+push this 11
+call Rival.draw 1
+pop temp 0
 push this 13
 push constant 0
 push constant 100
@@ -214,18 +260,6 @@ lt
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 11
-push this 2
-call Player.getPos 1
-call Rival.shoot 2
-pop this 10
-push this 0
-push this 10
-call LinkedListBullets.push 2
-pop temp 0
-push this 10
-call Bullet.draw 1
-pop temp 0
 label IF_FALSE0
 push this 6
 call RivalNode.getNext 1
@@ -289,7 +323,8 @@ pop temp 0
 label IF_FALSE0
 push this 2
 call Keyboard.keyPressed 0
-call Player.move 2
+push this 1
+call Player.move 3
 pop temp 0
 push constant 0
 return

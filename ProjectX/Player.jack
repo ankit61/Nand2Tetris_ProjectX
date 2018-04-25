@@ -5,9 +5,12 @@ class Player {
     static Pair velocity;
     static Pair bulletVelocity;
     field int memAddress;
+    field RivalNode rivalIt;
+    field bool shouldMove;
     
     constructor Player new(Pair p) {
         let pos = Pair.new(p.getX(), p.getY());
+        let shouldMove = true;
         let width = Util.getPersonWidth();
         let height = Util.getPersonHeight();
         let velocity = Pair.new(2, 2);
@@ -16,7 +19,7 @@ class Player {
         return this;
     }
 
-    method Pair move(int keyPressed) {
+    method Pair move(int keyPressed, LinkedListRivals rivals) {
         var Pair newPos;
         let newPos = Pair.new(pos.getX(), pos.getY());
         if(keyPressed = 130) { // left
@@ -47,10 +50,30 @@ class Player {
         if(~(pos.getX() = newPos.getX()) | ~(pos.getY() = newPos.getY())) {
             do undraw();
         }
-        do pos.assign(newPos);
+        let rivalIt = rivals.getHead();
+        while(~(rivalIt = null)) {
+            if(inCollision(newPos, rivalIt.getRival())) {
+                let shouldMove = false;
+            }
+            let rivalIt = rivalIt.getNext();
+        }
+        if(shouldMove) {
+            do pos.assign(newPos);
+        }
+        else {
+            let shouldMove = true;
+        }
         do draw();
         do newPos.dispose();
         return pos;
+    }
+
+    method bool inCollision(Pair p, Rival r) {
+        if(((p.getX() + width) > r.getX()) & (p.getX() < (r.getX() + r.getWidth())) & 
+           ((p.getY() + height) > r.getY()) & (p.getY() < (r.getY() + r.getHeight()))) {
+            return true;  
+           }
+        return false;
     }
 
     method void draw() {
