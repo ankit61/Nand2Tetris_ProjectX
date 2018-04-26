@@ -10,7 +10,6 @@ class Main {
             do Output.printString("Next Level...");
             do Sys.wait(5000);
             do Screen.clearScreen();
-            do g.dispose();
             let i = i + 1;
         }
         return;
