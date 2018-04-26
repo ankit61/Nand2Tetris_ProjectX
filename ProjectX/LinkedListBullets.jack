@@ -55,4 +55,10 @@ class LinkedListBullets {
         do Output.println();
         return;
     }
+
+    method void dispose() {
+        do head.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
 }

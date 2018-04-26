@@ -20,9 +20,6 @@ call LinkedListBullets.new 0
 pop this 0
 call LinkedListRivals.new 0
 pop this 1
-push constant 200
-call BulletsArray.new 1
-pop this 0
 push constant 4
 pop this 12
 label WHILE_EXP0
@@ -126,26 +123,32 @@ pop pointer 0
 push this 2
 call Player.dispose 1
 pop temp 0
+push this 1
+call LinkedListRivals.getHead 1
+push constant 0
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+call LinkedListRivals.dispose 1
+pop temp 0
+label IF_FALSE0
+push this 0
+call LinkedListBullets.getHead 1
+push constant 0
+eq
+not
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+call LinkedListBullets.dispose 1
+pop temp 0
+label IF_FALSE1
 push this 13
 call RandomGenerator.dispose 1
-pop temp 0
-push this 10
-call Bullet.dispose 1
-pop temp 0
-push this 11
-call Rival.dispose 1
-pop temp 0
-push this 5
-call BulletNode.dispose 1
-pop temp 0
-push this 4
-call BulletNode.dispose 1
-pop temp 0
-push this 6
-call RivalNode.dispose 1
-pop temp 0
-push this 7
-call RivalNode.dispose 1
 pop temp 0
 push pointer 0
 call Memory.deAlloc 1
@@ -170,6 +173,15 @@ if-goto WHILE_END0
 push this 4
 call BulletNode.getBullet 1
 pop this 10
+push this 10
+call Output.printInt 1
+pop temp 0
+push constant 1
+call String.new 1
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
 push this 10
 call Bullet.move 1
 pop temp 0

@@ -183,3 +183,14 @@ call Output.println 0
 pop temp 0
 push constant 0
 return
+function LinkedListRivals.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call RivalNode.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

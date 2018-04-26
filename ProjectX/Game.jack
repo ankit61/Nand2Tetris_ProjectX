@@ -17,7 +17,6 @@ class Game {
         let player = Player.new(Pair.new(Util.even(random.generate(Util.minX(), Util.maxX())), random.generate(Util.minY(), Util.maxY())));
         let bullets = LinkedListBullets.new();
         let rivals = LinkedListRivals.new();
-        let bullets = BulletsArray.new(200);
         let shootingProbability = 4;
         while(numRivals > 0) {
             do rivals.push(Rival.new(Pair.new(random.generate(Util.minX(), Util.maxX()), random.generate(Util.minY(), Util.maxY())), random.generate(50, 100), random.generate(0, 50), rivals.getSize()));
@@ -49,13 +48,13 @@ class Game {
     
     method void dispose() {
         do player.dispose();
+        if(~(rivals.getHead() = null)) {
+            do rivals.dispose();
+        }
+        if(~(bullets.getHead() = null)) {
+            do bullets.dispose();
+        }
         do random.dispose();
-        do tempBullet.dispose();
-        do tempRival.dispose();
-        do bulletPrev.dispose();
-        do bulletIt.dispose();
-        do rivalIt.dispose();
-        do rivalPrev.dispose();
         do Memory.deAlloc(this);
         return;
     }
@@ -65,6 +64,8 @@ class Game {
         let bulletPrev = null;
         while(~(bulletIt = null)) {
             let tempBullet = bulletIt.getBullet();
+            do Output.printInt(tempBullet);
+            do Output.printString(" ");
             do tempBullet.move();
             if((tempBullet.onEdge()) & (~tempBullet.shouldBounce())) {
                 let bulletIt = bullets.erase(bulletPrev);

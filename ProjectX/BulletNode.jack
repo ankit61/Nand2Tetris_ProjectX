@@ -29,6 +29,9 @@ class BulletNode {
 
     method void dispose() {
         do b.dispose();
+        if(~(next = null)) {
+            do next.dispose();
+        }
         do Memory.deAlloc(this);
         return;
     }
