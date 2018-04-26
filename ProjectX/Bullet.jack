@@ -23,7 +23,9 @@ class Bullet {
     }
     
     method void draw() {
-        do Util.drawRectangle(pos, width, height, true);
+        if(Util.isValidX(pos.getX()) & Util.isValidY(pos.getY())) {
+            do Util.drawRectangle(pos, width, height, true);
+        }
         return;
     }
 

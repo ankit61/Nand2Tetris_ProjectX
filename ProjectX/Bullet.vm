@@ -39,12 +39,23 @@ function Bullet.draw 0
 push argument 0
 pop pointer 0
 push this 0
+call Pair.getX 1
+call Util.isValidX 1
+push this 0
+call Pair.getY 1
+call Util.isValidY 1
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
 push this 8
 push this 9
 push constant 0
 not
 call Util.drawRectangle 4
 pop temp 0
+label IF_FALSE0
 push constant 0
 return
 function Bullet.onEdge 0
@@ -145,6 +156,18 @@ label IF_TRUE0
 push constant 0
 return
 label IF_FALSE0
+push constant 4
+call String.new 1
+push constant 104
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
 push this 13
 push this 2
 neg

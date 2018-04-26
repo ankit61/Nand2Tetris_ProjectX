@@ -53,7 +53,7 @@ class Util {
     }
 
     function int minX() {
-        return 0;
+        return 2;
     }
 
     function int abs(int x) {
@@ -67,8 +67,17 @@ class Util {
         return (255 / Util.scalingFactor()) - (32 / Util.scalingFactor());
     }
     
+    function int even(int x) {
+        if(Util.mod(x, 2) = 0) {
+            return x;
+        }
+        else {
+            return (x - 1);
+        }
+    }
+
     function int minY() {
-        return 0;
+        return 2;
     }
 
     function int getPersonWidth() {
