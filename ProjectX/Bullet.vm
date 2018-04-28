@@ -45,6 +45,16 @@ push this 0
 call Pair.getY 1
 call Util.isValidY 1
 and
+push this 0
+call Pair.getY 1
+push this 9
+add
+call Util.isValidY 1
+and
+push this 0
+call Pair.getX 1
+call Util.isValidX 1
+and
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
@@ -67,12 +77,6 @@ return
 function Bullet.move 1
 push argument 0
 pop pointer 0
-push constant 1
-call String.new 1
-push constant 32
-call String.appendChar 2
-call Output.printString 1
-pop temp 0
 push this 0
 call Pair.getX 1
 push this 0
@@ -133,6 +137,18 @@ push pointer 0
 call Bullet.draw 1
 pop temp 0
 push this 0
+return
+function Bullet.getX 0
+push argument 0
+pop pointer 0
+push this 0
+call Pair.getX 1
+return
+function Bullet.getY 0
+push argument 0
+pop pointer 0
+push this 0
+call Pair.getY 1
 return
 function Bullet.undraw 0
 push argument 0

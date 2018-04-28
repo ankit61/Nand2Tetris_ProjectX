@@ -23,9 +23,10 @@ class Bullet {
     }
     
     method void draw() {
-        if(Util.isValidX(pos.getX()) & Util.isValidY(pos.getY())) {
+        if(Util.isValidX(pos.getX()) & Util.isValidY(pos.getY()) & Util.isValidY(pos.getY() + height) & Util.isValidX(pos.getX())) {
             do Util.drawRectangle(pos, width, height, true);
         }
+        
         return;
     }
 
@@ -35,7 +36,6 @@ class Bullet {
     
     method Pair move() {
         var Pair newPos;
-        do Output.printString(" ");
         let newPos = Pair.new(pos.getX(), pos.getY());
         if(Util.onEdge(newPos)) {
             if(willBounce) {
@@ -53,6 +53,14 @@ class Bullet {
         do newPos.dispose();
         do draw();
         return pos;
+    }
+
+    method Pair getX() {
+        return pos.getX();
+    }
+
+    method Pair getY() {
+        return pos.getY();
     }
 
     method void undraw() {

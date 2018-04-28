@@ -17,7 +17,6 @@ class Game {
         let player = Player.new(Pair.new(Util.even(random.generate(Util.minX(), Util.maxX())), random.generate(Util.minY(), Util.maxY())));
         let bullets = LinkedListBullets.new();
         let rivals = LinkedListRivals.new();
-        let bullets = BulletsArray.new(200);
         let shootingProbability = 4;
         while(numRivals > 0) {
             do rivals.push(Rival.new(Pair.new(random.generate(Util.minX(), Util.maxX()), random.generate(Util.minY(), Util.maxY())), random.generate(50, 100), random.generate(0, 50), rivals.getSize()));
@@ -71,19 +70,17 @@ class Game {
                 let tempBullet = null;
             }
             else {
-                let bulletPrev = bulletIt;
-                let bulletIt = bulletIt.getNext();       
-            }
-            if(~(tempBullet = null)) {
                 if(tempBullet.inCollisionPlayer(player)) {
                     do gameOver();
                 }
                 let rivalIt = rivals.getHead();
                 let rivalPrev = null;
-                while(~(rivalIt = null)) {
+                while(~(rivalIt = null) & ~(tempBullet = null)) {
                     let tempRival = rivalIt.getRival();
                     if(tempBullet.inCollisionRival(tempRival)) {
                         let rivalIt = rivals.erase(rivalPrev);
+                        let bulletIt = bullets.erase(bulletPrev);
+                        let tempBullet = null;
                         do tempRival.die();
                     }
                     else {
@@ -91,21 +88,31 @@ class Game {
                         let rivalIt = rivalIt.getNext();
                     }
                 }
+                if(~(tempBullet = null)) {
+                    let bulletPrev = bulletIt;
+                    let bulletIt = bulletIt.getNext();
+                }
             }
+                
         }
-        return;
+    return;
     }
 
     method void controlRivals() {
         let rivalIt = rivals.getHead();
         while(~(rivalIt = null)) {
             let tempRival = rivalIt.getRival();
-            do tempRival.move(rivals);
-            if(random.generate(0, 100) < shootingProbability) {
+            //do tempRival.move(rivals);
+            /*if(random.generate(0, 100) < shootingProbability) {
                 let tempBullet = tempRival.shoot(player.getPos());
-                do bullets.push(tempBullet);
-                do tempBullet.draw();
-            }
+                if(tempBullet.onEdge() | ~Util.isValidX(tempBullet.getX()) | ~Util.isValidY(tempBullet.getY())) {
+                    do tempBullet.dispose();
+                }
+                else {
+                    do tempBullet.draw();
+                    do bullets.push(tempBullet);
+                }
+            }*/
             let rivalIt = rivalIt.getNext();
         }
         return;
@@ -122,8 +129,16 @@ class Game {
     method void controlPlayer() {
         if(Keyboard.keyPressed() = Util.space()) {
             let tempBullet = player.shoot();
-            do tempBullet.draw();
-            do bullets.push(tempBullet);
+            if(tempBullet.onEdge() | ~Util.isValidX(tempBullet.getX()) | ~Util.isValidY(tempBullet.getY())) {
+                do tempBullet.dispose();
+            }
+            else {
+                do Output.printInt(tempBullet.getX());
+                do Output.println();
+                do Output.printInt(tempBullet.getY());
+                do tempBullet.draw();
+                do bullets.push(tempBullet);
+            }
         }
         do player.move(Keyboard.keyPressed(), rivals);
         return;

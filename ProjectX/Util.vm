@@ -4,6 +4,16 @@ call Screen.setColor 1
 pop temp 0
 push argument 0
 call Pair.getX 1
+call Util.isValidX 1
+push argument 0
+call Pair.getY 1
+call Util.isValidY 1
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+call Pair.getX 1
 call Util.scalingFactor 0
 call Math.multiply 2
 push argument 0
@@ -24,6 +34,7 @@ add
 call Math.multiply 2
 call Screen.drawRectangle 4
 pop temp 0
+label IF_FALSE0
 push constant 0
 return
 function Util.bulletSpeed 0
@@ -151,13 +162,7 @@ label IF_FALSE0
 push argument 0
 return
 function Util.maxY 0
-push constant 255
-call Util.scalingFactor 0
-call Math.divide 2
-push constant 32
-call Util.scalingFactor 0
-call Math.divide 2
-sub
+push constant 27
 return
 function Util.even 0
 push argument 0

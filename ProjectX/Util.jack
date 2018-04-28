@@ -2,7 +2,9 @@ class Util {
 
     function void drawRectangle(Pair leftTop, int w, int h, bool color) {
         do Screen.setColor(color);
-        do Screen.drawRectangle(leftTop.getX() * Util.scalingFactor(), leftTop.getY() * Util.scalingFactor(), Util.scalingFactor() * (leftTop.getX() + w), Util.scalingFactor() * (leftTop.getY() + h));
+        if(Util.isValidX(leftTop.getX()) & Util.isValidY(leftTop.getY())) {
+            do Screen.drawRectangle(leftTop.getX() * Util.scalingFactor(), leftTop.getY() * Util.scalingFactor(), Util.scalingFactor() * (leftTop.getX() + w), Util.scalingFactor() * (leftTop.getY() + h));
+        }
         return;
     }
 
@@ -64,7 +66,7 @@ class Util {
     }
 
     function int maxY() {
-        return (255 / Util.scalingFactor()) - (32 / Util.scalingFactor());
+        return 27;
     }
     
     function int even(int x) {
