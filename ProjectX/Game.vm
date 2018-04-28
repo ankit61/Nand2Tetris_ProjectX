@@ -1,5 +1,5 @@
 function Game.new 0
-push constant 14
+push constant 15
 call Memory.alloc 1
 pop pointer 0
 call RandomGenerator.new 0
@@ -59,7 +59,7 @@ goto WHILE_EXP0
 label WHILE_END0
 push pointer 0
 return
-function Game.run 1
+function Game.run 0
 push argument 0
 pop pointer 0
 push this 1
@@ -231,11 +231,11 @@ push this 0
 push this 5
 call LinkedListBullets.erase 2
 pop this 4
+push this 10
+call Bullet.dispose 1
+pop temp 0
 push constant 0
 pop this 10
-push this 11
-call Rival.die 1
-pop temp 0
 goto IF_END2
 label IF_FALSE2
 push this 6
@@ -280,6 +280,53 @@ if-goto WHILE_END0
 push this 6
 call RivalNode.getRival 1
 pop this 11
+push this 11
+push this 1
+call Rival.move 2
+pop temp 0
+push this 13
+push constant 0
+push constant 100
+call RandomGenerator.generate 3
+push this 12
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 11
+push this 2
+call Player.getPos 1
+call Rival.shoot 2
+pop this 10
+push this 10
+call Bullet.onEdge 1
+push this 10
+call Bullet.getX 1
+call Util.isValidX 1
+not
+or
+push this 10
+call Bullet.getY 1
+call Util.isValidY 1
+not
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 10
+call Bullet.dispose 1
+pop temp 0
+goto IF_END1
+label IF_FALSE1
+push this 10
+call Bullet.draw 1
+pop temp 0
+push this 0
+push this 10
+call LinkedListBullets.push 2
+pop temp 0
+label IF_END1
+label IF_FALSE0
 push this 6
 call RivalNode.getNext 1
 pop this 6
@@ -353,21 +400,14 @@ pop temp 0
 goto IF_END1
 label IF_FALSE1
 push this 10
-call Bullet.getX 1
-call Output.printInt 1
-pop temp 0
-call Output.println 0
-pop temp 0
-push this 10
-call Bullet.getY 1
-call Output.printInt 1
-pop temp 0
-push this 10
 call Bullet.draw 1
 pop temp 0
 push this 0
 push this 10
 call LinkedListBullets.push 2
+pop temp 0
+push constant 500
+call Sys.wait 1
 pop temp 0
 label IF_END1
 label IF_FALSE0

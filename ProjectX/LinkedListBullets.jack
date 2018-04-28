@@ -24,6 +24,7 @@ class LinkedListBullets {
 
     method BulletNode erase(BulletNode prev) {
         var BulletNode temp;
+        
         if(prev = null) { //deleting head
             if(head = null) {
                 do Output.printString("error: deleting from empty list");
@@ -32,6 +33,7 @@ class LinkedListBullets {
             let temp = head;
             let head = head.getNext();
             do temp.dispose();
+            
         }
         else {
             let temp = prev.getNext();

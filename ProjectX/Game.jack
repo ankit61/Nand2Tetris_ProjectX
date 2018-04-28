@@ -11,6 +11,7 @@ class Game {
     field Rival tempRival;
     field int shootingProbability;
     field RandomGenerator random;
+    field bool test;
 
     constructor Game new(int numRivals) {
         let random = RandomGenerator.new();
@@ -26,7 +27,6 @@ class Game {
     }
 
     method void run() {
-        var bool done;
         let rivalIt = rivals.getHead();
         while(~(rivalIt = null)) {
             let tempRival = rivalIt.getRival();
@@ -80,8 +80,8 @@ class Game {
                     if(tempBullet.inCollisionRival(tempRival)) {
                         let rivalIt = rivals.erase(rivalPrev);
                         let bulletIt = bullets.erase(bulletPrev);
+                        do tempBullet.dispose();
                         let tempBullet = null;
-                        do tempRival.die();
                     }
                     else {
                         let rivalPrev = rivalIt;
@@ -92,18 +92,17 @@ class Game {
                     let bulletPrev = bulletIt;
                     let bulletIt = bulletIt.getNext();
                 }
-            }
-                
+            }        
         }
-    return;
+        return;
     }
 
     method void controlRivals() {
         let rivalIt = rivals.getHead();
         while(~(rivalIt = null)) {
             let tempRival = rivalIt.getRival();
-            //do tempRival.move(rivals);
-            /*if(random.generate(0, 100) < shootingProbability) {
+            do tempRival.move(rivals);
+            if(random.generate(0, 100) < shootingProbability) {
                 let tempBullet = tempRival.shoot(player.getPos());
                 if(tempBullet.onEdge() | ~Util.isValidX(tempBullet.getX()) | ~Util.isValidY(tempBullet.getY())) {
                     do tempBullet.dispose();
@@ -112,7 +111,7 @@ class Game {
                     do tempBullet.draw();
                     do bullets.push(tempBullet);
                 }
-            }*/
+            }
             let rivalIt = rivalIt.getNext();
         }
         return;
@@ -133,11 +132,10 @@ class Game {
                 do tempBullet.dispose();
             }
             else {
-                do Output.printInt(tempBullet.getX());
-                do Output.println();
-                do Output.printInt(tempBullet.getY());
                 do tempBullet.draw();
+
                 do bullets.push(tempBullet);
+                do Sys.wait(500);
             }
         }
         do player.move(Keyboard.keyPressed(), rivals);

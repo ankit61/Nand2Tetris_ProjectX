@@ -137,12 +137,6 @@ class Rival {
         return b;
     }
 
-    method void die() {
-        do undraw();
-        do Memory.deAlloc(this);
-        return;
-    }
-
     method pair getPos() {
         return pos;
     }
@@ -172,6 +166,7 @@ class Rival {
     }
 
     method void dispose() {
+        do undraw();
         do pos.dispose();
         do velocity.dispose();
         do random.dispose();
