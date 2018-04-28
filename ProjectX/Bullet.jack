@@ -1,7 +1,6 @@
 class Bullet {
     field Pair pos, velocity;
     field int t, sign, randomIndex, memAddress, dx, dy, width, height, i;
-    field Array seeds;
     field bool willBounce;
     field RandomGenerator random;
 
